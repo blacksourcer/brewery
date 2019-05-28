@@ -1,9 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import Enzyme, { shallow } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
+import configureStore from 'redux-mock-store'
+
 import Home from './';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<Home />, div);
-  ReactDOM.unmountComponentAtNode(div);
-});
+Enzyme.configure({ adapter: new Adapter() })
+
+const mockStore = configureStore()
+
+describe('Home page', () => {
+  it('renders without crashing', () => {
+    const store = mockStore({ user: null })
+
+    shallow(<Home store={store} />);
+  })
+})

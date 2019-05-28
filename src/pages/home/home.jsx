@@ -2,11 +2,18 @@ import React from 'react';
 
 import Button from '@material-ui/core/Button';
 
-const Home = () => {
+const Home = (props) => {
+  console.log(props)
+  const { user, onSignOutButtonClick } = props;
   return (
-    <Button variant="contained" color="primary">
-      Hello World
-    </Button>
+    <div>
+      Home
+      { user && 
+        <Button onClick={() => onSignOutButtonClick()}>
+          Sign out
+        </Button>
+      }
+    </div>
   );
 }
 

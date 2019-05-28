@@ -1,8 +1,19 @@
 import React from 'react';
 
-const SignIn = () => {
+import Button from '@material-ui/core/Button';
+
+const SignIn = ({ user, onFormSubmit }) => {
+  if (user) {
+    return (
+      <div>{user.email}</div>
+    );
+  }
   return (
-    <div>SignIn</div>
+    <Button variant="contained" color="primary" onClick={
+      (e) => onFormSubmit('blacksourcer@gmail.com', '')
+    }>
+      Sign In
+    </Button>
   );
 }
 
