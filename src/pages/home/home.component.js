@@ -1,24 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Button from '@material-ui/core/Button'
+import Container from '@material-ui/core/Container'
 
-const Home = ({ user, onSignOutButtonClick }) => {
+const Home = ({ user }) => {
   return (
-    <div>
-      Home
-      { user &&
-        <Button onClick={() => onSignOutButtonClick()}>
-          Sign out
-        </Button>
-      }
-    </div>
+    <Container maxWidth='lg'>
+      Welcome, {user.email}
+    </Container>
   )
 }
 
 Home.propTypes = {
-  user: PropTypes.any,
-  onSignOutButtonClick: PropTypes.func
+  user: PropTypes.any
 }
 
 export default Home

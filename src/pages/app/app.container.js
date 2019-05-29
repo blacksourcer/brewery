@@ -2,4 +2,8 @@ import { connect } from 'react-redux'
 
 import App from './app.component'
 
-export default connect()(App)
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+export default connect(mapStateToProps)(App)
