@@ -1,4 +1,4 @@
-import * as actions from './actions';
+import * as actions from './actions'
 
 describe('user actions', () => {
   it('creates valid signIn action', () => {
@@ -7,6 +7,6 @@ describe('user actions', () => {
         type: actions.SIGN_IN,
         email: 'user@domain.com',
         password: 'qweqwe123'
-      });
+      })
   })
-});
+})

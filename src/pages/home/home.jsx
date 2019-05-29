@@ -1,20 +1,24 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button'
 
-const Home = (props) => {
-  console.log(props)
-  const { user, onSignOutButtonClick } = props;
+const Home = ({ user, onSignOutButtonClick }) => {
   return (
     <div>
       Home
-      { user && 
+      { user &&
         <Button onClick={() => onSignOutButtonClick()}>
           Sign out
         </Button>
       }
     </div>
-  );
+  )
 }
 
-export default Home;
+Home.propTypes = {
+  user: PropTypes.any,
+  onSignOutButtonClick: PropTypes.func
+}
+
+export default Home

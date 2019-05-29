@@ -1,23 +1,22 @@
 import {
   SIGN_IN,
   SIGN_OUT
-} from './actions';
+} from './actions'
 
-const initialState = null;
+const initialState = null
 
 const user = (state = initialState, action) => {
   switch (action.type) {
     case SIGN_IN:
       return {
         email: action.email
-      };
-    
+      }
     case SIGN_OUT:
-      return null;
+      return null
 
     default:
-      return state;
+      return state
   }
 }
 
-export default user;
+export default user
