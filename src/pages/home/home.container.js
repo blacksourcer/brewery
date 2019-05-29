@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import { signOut } from '../../store/user/actions'
 
-import Home from './home.jsx'
+import Home from './home.component'
 
 const mapStateToProps = state => ({
   user: state.user

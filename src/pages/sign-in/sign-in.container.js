@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import { signIn } from '../../store/user/actions'
 
-import SignIn from './sign-in.jsx'
+import SignIn from './sign-in.component'
 
 const mapStateToProps = state => ({
   user: state.user

@@ -1,23 +1,17 @@
 import React from 'react'
 import {
   BrowserRouter as Router,
-  Route,
-  Link
+  Route
 } from 'react-router-dom'
 
 import Home from '../../pages/home'
 import SignIn from '../../pages/sign-in'
 
-import './app.css'
+import Header from '../../components/header'
 
 const App = () => (
   <Router>
-    <ul>
-      <li>
-        <Link to='/'>Home</Link>
-      </li>
-      <li><Link to='/sign-in'>Sign In</Link></li>
-    </ul>
+    <Header />
     <Route exact path='/' component={Home} />
     <Route exact path='/sign-in' component={SignIn} />
   </Router>
