@@ -3,16 +3,20 @@ import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import configureStore from 'redux-mock-store'
 
-import Header from './'
+import Layout from './'
 
 Enzyme.configure({ adapter: new Adapter() })
 
 const mockStore = configureStore()
 
-describe('AppBar component', () => {
+describe('Layout component', () => {
   it('renders without crashing', () => {
     const store = mockStore({ user: null })
 
-    shallow(<Header store={store} />)
+    shallow(
+      <Layout store={store}>
+        <div>Content</div>
+      </Layout>
+    )
   })
 })

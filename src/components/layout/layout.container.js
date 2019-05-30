@@ -2,10 +2,14 @@ import { connect } from 'react-redux'
 
 import { signOut } from '../../store/user/actions'
 
-import Header from './header.component'
+import Layout from './layout.component'
+
+const mapStateToProps = state => ({
+  user: state.user
+})
 
 const mapDispatchToProps = dispatch => ({
   onSignOutButtonClick: () => dispatch(signOut())
 })
 
-export default connect(null, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Layout)
