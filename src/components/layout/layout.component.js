@@ -34,7 +34,8 @@ const Layout = ({
         <LayoutDrawer open={drawerOpen} />
       }
       <main className={clsx(classes.content, {
-        [classes.contentShift]: drawerOpen
+        [classes.contentLayout]: isAuthorized,
+        [classes.contentLayoutDrawerOpen]: isAuthorized && drawerOpen
       })}>
         <div className={classes.contentSpacer} />
         <Container maxWidth='lg' className={classes.container}>

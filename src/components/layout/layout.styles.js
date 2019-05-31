@@ -1,7 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles'
 
-const drawerWidth = 240
-
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex'
@@ -9,20 +7,17 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     height: '100vh',
-    overflow: 'auto',
-    padding: theme.spacing(3),
+    overflow: 'auto'
+  },
+  contentLayout: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     }),
-    marginRight: -drawerWidth
+    marginLeft: -theme.spacing(30)
   },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    }),
-    marginRight: 0
+  contentLayoutDrawerOpen: {
+    marginLeft: 0
   },
   contentSpacer: theme.mixins.toolbar,
   container: {

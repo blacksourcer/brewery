@@ -1,14 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles'
 
-const drawerWidth = 240
-
 const useStyles = makeStyles(theme => ({
   drawer: {
-    width: drawerWidth,
+    width: theme.spacing(30),
     flexShrink: 0
   },
   drawerPaper: {
-    width: drawerWidth
+    width: theme.spacing(30)
   },
   toolbar: theme.mixins.toolbar
 }))
