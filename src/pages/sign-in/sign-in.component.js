@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button'
 
 import useStyles from './sign-in.styles'
 
-const SignIn = ({ onFormSubmit }) => {
+const SignIn = ({ error, onFormSubmit }) => {
   const classes = useStyles()
 
   const handleInputChange = e => {
@@ -26,6 +26,9 @@ const SignIn = ({ onFormSubmit }) => {
 
   return (
     <Container maxWidth='xs'>
+      { error &&
+        <div>{error}</div>
+      }
       <form className={classes.form} noValidate onSubmit={handleSubmit}>
         <TextField
           margin='normal'
@@ -76,6 +79,7 @@ const SignIn = ({ onFormSubmit }) => {
 }
 
 SignIn.propTypes = {
+  error: PropTypes.string,
   onFormSubmit: PropTypes.func
 }
 

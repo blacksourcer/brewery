@@ -7,11 +7,14 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 
 import LayoutAppBar from './layout-app-bar'
 import LayoutDrawer from './layout-drawer'
+import LayoutMessage from './layout-message'
 
 import useStyles from './layout.styles'
 
 const Layout = ({
   user,
+  error,
+  onMessageClose,
   onSignOutButtonClick,
   children
 }) => {
@@ -41,6 +44,9 @@ const Layout = ({
         <Container maxWidth='lg' className={classes.container}>
           {children}
         </Container>
+        { error &&
+          <LayoutMessage variant='error' message={error.message} onClose={onMessageClose} />
+        }
       </main>
     </div>
   )
@@ -48,6 +54,8 @@ const Layout = ({
 
 Layout.propTypes = {
   user: PropTypes.any,
+  error: PropTypes.any,
+  onMessageClose: PropTypes.func,
   onSignOutButtonClick: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),

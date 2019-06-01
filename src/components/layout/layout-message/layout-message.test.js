@@ -2,12 +2,12 @@ import React from 'react'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
-import LayoutDrawer from './'
+import LayoutMessage from './'
 
 Enzyme.configure({ adapter: new Adapter() })
 
-describe('LayoutDrawer component', () => {
+describe('LayoutMessage component', () => {
   it('renders without crashing', () => {
-    shallow(<LayoutDrawer />)
+    shallow(<LayoutMessage />)
   })
 })
