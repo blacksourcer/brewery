@@ -7,14 +7,14 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 
 import LayoutAppBar from './layout-app-bar'
 import LayoutDrawer from './layout-drawer'
-import LayoutMessage from './layout-message'
+import LayoutError from './layout-error'
 
 import useStyles from './layout.styles'
 
 const Layout = ({
   user,
   error,
-  onMessageClose,
+  onErrorClose,
   onSignOutButtonClick,
   children
 }) => {
@@ -31,6 +31,7 @@ const Layout = ({
         <LayoutAppBar
           onDrawerButtonClick={() => setDrawerOpen(!drawerOpen)}
           onSignOutButtonClick={onSignOutButtonClick}
+          data-test-id='layout_layout-app-bar'
         />
       }
       { isAuthorized &&
@@ -45,7 +46,11 @@ const Layout = ({
           {children}
         </Container>
         { error &&
-          <LayoutMessage variant='error' message={error.message} onClose={onMessageClose} />
+          <LayoutError
+            message={error.message}
+            onClose={onErrorClose}
+            data-test-id='layout_layout-error'
+          />
         }
       </main>
     </div>
@@ -54,8 +59,10 @@ const Layout = ({
 
 Layout.propTypes = {
   user: PropTypes.any,
-  error: PropTypes.any,
-  onMessageClose: PropTypes.func,
+  error: PropTypes.shape({
+    message: PropTypes.string
+  }),
+  onErrorClose: PropTypes.func,
   onSignOutButtonClick: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),

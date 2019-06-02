@@ -21,13 +21,10 @@ const variantIcon = {
   info: InfoIcon
 }
 
-const LayoutMessage = ({ variant, message, onClose }) => {
+const LayoutMessage = ({ variant = 'success', message }) => {
   const [ open, setOpen ] = useState(true)
 
-  const handleClose = () => {
-    setOpen(false)
-    onClose()
-  }
+  const handleClose = () => setOpen(false)
 
   const classes = useStyles()
   const Icon = variantIcon[variant]
@@ -35,11 +32,11 @@ const LayoutMessage = ({ variant, message, onClose }) => {
   return (
     <Snackbar
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'center'
+        vertical: 'bottom',
+        horizontal: 'left'
       }}
       open={open}
-      autoHideDuration={10000}
+      autoHideDuration={5000}
       onClose={handleClose}
     >
       <SnackbarContent
@@ -62,9 +59,8 @@ const LayoutMessage = ({ variant, message, onClose }) => {
 }
 
 LayoutMessage.propTypes = {
-  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
-  message: PropTypes.string.isRequired,
-  onClose: PropTypes.func
+  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']),
+  message: PropTypes.string.isRequired
 }
 
 export default LayoutMessage

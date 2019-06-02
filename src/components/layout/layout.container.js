@@ -11,8 +11,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onMessageClose: () => dispatch(error(null)),
-  onSignOutButtonClick: () => dispatch(signOut())
+  onErrorDiscard: () => dispatch(error(null)),
+  onSignOut: () => dispatch(signOut())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout)

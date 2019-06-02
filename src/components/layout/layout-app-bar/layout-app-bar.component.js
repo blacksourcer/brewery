@@ -11,36 +11,39 @@ import MenuIcon from '@material-ui/icons/Menu'
 import useStyles from './layout-app-bar.styles'
 
 const LayoutAppBar = ({
-  onDrawerButtonClick,
+  onMenuButtonClick,
   onSignOutButtonClick
 }) => {
   const classes = useStyles()
 
   return (
-    <div>
-      <AppBar position='absolute' className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            edge='start'
-            className={classes.menuButton}
-            color='inherit'
-            aria-label='Menu'
-            onClick={onDrawerButtonClick}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant='h6' className={classes.title}>
-            Brewery
-          </Typography>
-          <Button color='inherit' onClick={onSignOutButtonClick}>Sign Out</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position='absolute' className={classes.appBar}>
+      <Toolbar>
+        <IconButton
+          edge='start'
+          className={classes.menuButton}
+          color='inherit'
+          aria-label='Menu'
+          onClick={onMenuButtonClick}
+          data-test-id='layout-app-bar_menu-button'
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography variant='h6' className={classes.title}>
+          Brewery
+        </Typography>
+        <Button
+          color='inherit'
+          onClick={onSignOutButtonClick}
+          data-test-id='layout-app-bar_sign-out-button'
+        >Sign Out</Button>
+      </Toolbar>
+    </AppBar>
   )
 }
 
 LayoutAppBar.propTypes = {
-  onDrawerButtonClick: PropTypes.func,
+  onMenuButtonClick: PropTypes.func,
   onSignOutButtonClick: PropTypes.func
 }
 

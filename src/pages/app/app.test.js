@@ -1,18 +1,13 @@
 import React from 'react'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import configureStore from 'redux-mock-store'
 
-import App from './'
+import App from './app.component'
 
 Enzyme.configure({ adapter: new Adapter() })
 
-const mockStore = configureStore()
-
 describe('App component', () => {
   it('renders without crashing', () => {
-    const store = mockStore({ user: null })
-
-    shallow(<App store={store} />)
+    shallow(<App />)
   })
 })
