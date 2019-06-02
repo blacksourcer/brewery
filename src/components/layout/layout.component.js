@@ -4,6 +4,7 @@ import clsx from 'clsx'
 
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 import LayoutAppBar from './layout-app-bar'
 import LayoutDrawer from './layout-drawer'
@@ -14,6 +15,7 @@ import useStyles from './layout.styles'
 const Layout = ({
   user,
   error,
+  loading = false,
   onErrorClose,
   onSignOutButtonClick,
   children
@@ -43,7 +45,12 @@ const Layout = ({
       })}>
         <div className={classes.contentSpacer} />
         <Container maxWidth='lg' className={classes.container}>
-          {children}
+          { loading &&
+            <div className={classes.overlay}>
+              <CircularProgress className={classes.progress} />
+            </div>
+          }
+          { children }
         </Container>
         { error &&
           <LayoutError
@@ -62,6 +69,7 @@ Layout.propTypes = {
   error: PropTypes.shape({
     message: PropTypes.string
   }),
+  loading: PropTypes.bool,
   onErrorClose: PropTypes.func,
   onSignOutButtonClick: PropTypes.func,
   children: PropTypes.oneOfType([

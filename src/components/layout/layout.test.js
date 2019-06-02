@@ -35,6 +35,14 @@ describe('Layout component', () => {
     )
   })
 
+  it('renders without crashing when in loading mode', () => {
+    shallow(
+      <Layout loading>
+        <div>Content</div>
+      </Layout>
+    )
+  })
+
   it('raises onErrorClose', () => {
     const error = { message: 'Error occured' }
     const onErrorCloseMock = jest.fn()

@@ -7,6 +7,7 @@ import Layout from './layout.component'
 
 const mapStateToProps = state => ({
   error: state.app.error,
+  loading: state.app.loading,
   user: state.user
 })
 
