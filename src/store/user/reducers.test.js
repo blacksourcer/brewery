@@ -13,9 +13,9 @@ describe('user reducers', () => {
   it('handles signIn action', () => {
     expect(reducer(null, {
       type: SIGN_IN,
-      email: 'user@domain.com',
-      password: 'qweqwe123'
-    })).toEqual({ email: 'user@domain.com' })
+      id: 's0mes1b0ls',
+      email: 'user@domain.com'
+    })).toEqual({ id: 's0mes1b0ls', email: 'user@domain.com' })
   })
 
   it('handles signOut action', () => {

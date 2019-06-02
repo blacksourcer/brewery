@@ -9,7 +9,11 @@ export const signIn = (email, password) => dispatch => {
   dispatch(loading())
 
   return auth.signInWithEmailAndPassword(email, password)
-    .then(() => dispatch({ type: SIGN_IN, email }))
+    .then((res) => dispatch({
+      type: SIGN_IN,
+      id: res.user.uid,
+      email: res.user.email
+    }))
     .catch((err) => dispatch(error(err)))
     .finally(() => dispatch(loaded()))
 }

@@ -9,6 +9,7 @@ const user = (state = initialState, action) => {
   switch (action.type) {
     case SIGN_IN:
       return {
+        id: action.id,
         email: action.email
       }
     case SIGN_OUT:

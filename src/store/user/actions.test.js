@@ -14,13 +14,18 @@ describe('user actions', () => {
   it('creates valid signIn action on success', () => {
     const store = mockStore({ user: null })
 
-    auth.signInWithEmailAndPassword.mockResolvedValue({})
+    auth.signInWithEmailAndPassword.mockResolvedValue({
+      user: {
+        uid: 's0mes1b0ls',
+        email: 'user@domain.com'
+      }
+    })
 
     return store.dispatch(actions.signIn('user@domain.com', 'qweqwe123'))
       .then(() => {
         expect(store.getActions()).toEqual([
           { type: appActions.LOADING },
-          { type: actions.SIGN_IN, email: 'user@domain.com' },
+          { type: actions.SIGN_IN, id: 's0mes1b0ls', email: 'user@domain.com' },
           { type: appActions.LOADED }
         ])
       })

@@ -16,7 +16,10 @@ describe('Layout component', () => {
   })
 
   it('renders without crashing when user is provided', () => {
-    const user = { email: 'user@domain.com' }
+    const user = {
+      id: 's0mes1b0ls',
+      email: 'user@domain.com'
+    }
 
     shallow(
       <Layout user={user} >
@@ -59,7 +62,11 @@ describe('Layout component', () => {
   })
 
   it('raises onSignOutButtonClick', () => {
-    const user = { email: 'user@domain.com' }
+    const user = {
+      id: 's0mes1b0ls',
+      email: 'user@domain.com'
+    }
+
     const onSignOutButtonClickMock = jest.fn()
 
     const wrapper = shallow(

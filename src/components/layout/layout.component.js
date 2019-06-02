@@ -65,7 +65,10 @@ const Layout = ({
 }
 
 Layout.propTypes = {
-  user: PropTypes.any,
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired
+  }),
   error: PropTypes.shape({
     message: PropTypes.string
   }),

@@ -34,7 +34,10 @@ const App = ({ user }) => {
 }
 
 App.propTypes = {
-  user: PropTypes.any
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired
+  })
 }
 
 export default App
