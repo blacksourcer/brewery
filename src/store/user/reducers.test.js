@@ -6,11 +6,11 @@ import {
 import reducer from './reducers'
 
 describe('user reducers', () => {
-  it('should return the initial state', () => {
+  it('returns the initial state', () => {
     expect(reducer(undefined, {})).toEqual(null)
   })
 
-  it('should handle signing in', () => {
+  it('handles signIn action', () => {
     expect(reducer(null, {
       type: SIGN_IN,
       email: 'user@domain.com',
@@ -18,7 +18,7 @@ describe('user reducers', () => {
     })).toEqual({ email: 'user@domain.com' })
   })
 
-  it('should handle signing out', () => {
+  it('handles signOut action', () => {
     const state = reducer({ email: 'user@domain.com' }, {
       type: SIGN_OUT
     })

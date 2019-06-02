@@ -2,14 +2,14 @@ import * as actions from './actions'
 import reducer from './reducers'
 
 describe('app reducers', () => {
-  it('should return the initial state', () => {
+  it('returns the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       loading: false,
       error: null
     })
   })
 
-  it('should handle Loading action', () => {
+  it('handles loading action', () => {
     expect(reducer({
       loading: false,
       error: null
@@ -19,7 +19,7 @@ describe('app reducers', () => {
     })
   })
 
-  it('should handle Loaded action', () => {
+  it('handles loaded action', () => {
     expect(reducer({
       loading: true,
       error: null
@@ -29,7 +29,7 @@ describe('app reducers', () => {
     })
   })
 
-  it('should handle Error action', () => {
+  it('handles error action', () => {
     expect(reducer({
       loading: false,
       error: null

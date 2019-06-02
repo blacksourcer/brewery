@@ -8,9 +8,10 @@ export const SIGN_OUT = 'USER_SIGN_OUT'
 export const signIn = (email, password) => dispatch => {
   dispatch(loading())
 
-  auth.signInWithEmailAndPassword(email, password)
-    .then(() => dispatch({ type: SIGN_IN, email }) && dispatch(loaded()))
+  return auth.signInWithEmailAndPassword(email, password)
+    .then(() => dispatch({ type: SIGN_IN, email }))
     .catch((err) => dispatch(error(err)))
+    .finally(() => dispatch(loaded()))
 }
 
 export function signOut () {
