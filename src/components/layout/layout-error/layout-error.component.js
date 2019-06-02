@@ -35,7 +35,7 @@ const LayoutError = ({ message, onClose }) => {
         aria-describedby='client-snackbar'
         message={
           <span className={classes.message}>
-            <ErrorIcon className={classes.icon} />
+            <ErrorIcon className={classes.iconVariant} />
             {message}
           </span>
         }
