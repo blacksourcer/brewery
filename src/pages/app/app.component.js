@@ -11,8 +11,13 @@ import Home from '../../pages/home'
 import SignIn from '../../pages/sign-in'
 
 import Layout from '../../components/layout'
+import Loader from '../../components/loader'
 
-const App = ({ user }) => {
+const App = ({ initializing = false, user }) => {
+  if (initializing) {
+    return (<Loader />)
+  }
+
   const isAuthorized = !!user
 
   const authorizedComponent = (component) => () => isAuthorized
@@ -34,6 +39,7 @@ const App = ({ user }) => {
 }
 
 App.propTypes = {
+  initializing: PropTypes.bool,
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired

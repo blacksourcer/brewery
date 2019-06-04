@@ -1,29 +1,37 @@
 import {
-  LOADING,
-  LOADED,
-  ERROR
+  SET_INITIALIZING,
+  SET_LOADING,
+  SET_ERROR,
+  SET_USER
 } from './actions'
 
 const initialState = {
+  initializing: false,
   loading: false,
-  error: null
+  error: null,
+  user: null
 }
 
 const app = (state = initialState, action) => {
   switch (action.type) {
-    case LOADING:
+    case SET_INITIALIZING:
       return {
-        ...state, loading: true
+        ...state, initializing: action.value
       }
 
-    case LOADED:
+    case SET_LOADING:
       return {
-        ...state, loading: false
+        ...state, loading: action.value
       }
 
-    case ERROR:
+    case SET_ERROR:
       return {
-        ...state, error: action.error
+        ...state, error: action.value
+      }
+
+    case SET_USER:
+      return {
+        ...state, user: action.value
       }
 
     default:

@@ -2,16 +2,14 @@ import React from 'react'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
-import App from './app.component'
+import Loader from './loader.component'
 
 Enzyme.configure({ adapter: new Adapter() })
 
-describe('App component', () => {
+describe('Layout component', () => {
   it('renders without crashing', () => {
-    shallow(<App />)
-  })
-
-  it('renders without crashing in initializing state', () => {
-    shallow(<App initializing />)
+    shallow(
+      <Loader />
+    )
   })
 })

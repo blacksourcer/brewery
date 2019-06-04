@@ -2,16 +2,20 @@ import { combineReducers, createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
 import app from './app/reducers'
-import user from './user/reducers'
+
+import { initialize } from './app/actions'
 
 const reducer = combineReducers({
-  app,
-  user
+  app
 })
 
-export default createStore(
+const store = createStore(
   reducer,
   applyMiddleware(
     thunkMiddleware
   )
 )
+
+store.dispatch(initialize())
+
+export default store

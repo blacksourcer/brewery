@@ -4,7 +4,8 @@ import clsx from 'clsx'
 
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import CircularProgress from '@material-ui/core/CircularProgress'
+
+import Loader from '../loader'
 
 import LayoutAppBar from './layout-app-bar'
 import LayoutDrawer from './layout-drawer'
@@ -45,11 +46,7 @@ const Layout = ({
       })}>
         <div className={classes.contentSpacer} />
         <Container maxWidth='lg' className={classes.container}>
-          { loading &&
-            <div className={classes.overlay}>
-              <CircularProgress className={classes.progress} />
-            </div>
-          }
+          { loading && <Loader />}
           { children }
         </Container>
         { error &&
