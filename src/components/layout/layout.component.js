@@ -32,7 +32,7 @@ const Layout = ({
       <CssBaseline />
       { isAuthorized &&
         <LayoutAppBar
-          onDrawerButtonClick={() => setDrawerOpen(!drawerOpen)}
+          onMenuButtonClick={() => setDrawerOpen(!drawerOpen)}
           onSignOutButtonClick={onSignOutButtonClick}
           data-test-id='layout_layout-app-bar'
         />
