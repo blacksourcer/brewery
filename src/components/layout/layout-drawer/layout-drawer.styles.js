@@ -8,7 +8,10 @@ const useStyles = makeStyles(theme => ({
   drawerPaper: {
     width: theme.spacing(30)
   },
-  toolbar: theme.mixins.toolbar
+  toolbar: theme.mixins.toolbar,
+  nested: {
+    paddingLeft: theme.spacing(9)
+  }
 }))
 
 export default useStyles

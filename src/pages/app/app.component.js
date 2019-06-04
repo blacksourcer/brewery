@@ -9,6 +9,7 @@ import {
 
 import Home from '../../pages/home'
 import SignIn from '../../pages/sign-in'
+import Nicotines from '../../pages/nicotines'
 
 import Layout from '../../components/layout'
 import Loader from '../../components/loader'
@@ -29,12 +30,13 @@ const App = ({ initializing = false, user }) => {
     : component
 
   return (
-    <Layout>
-      <Router>
+    <Router>
+      <Layout>
         <Route exact path='/' render={authorizedComponent(<Home />)} />
+        <Route exact path='/nicotines' render={authorizedComponent(<Nicotines />)} />
         <Route exact path='/sign-in' render={nonAuthorizedComponent(<SignIn />)} />
-      </Router>
-    </Layout>
+      </Layout>
+    </Router>
   )
 }
 
