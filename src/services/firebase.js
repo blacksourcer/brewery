@@ -13,6 +13,7 @@ const config = {
 firebase.initializeApp(config)
 
 const db = firebase.firestore()
-const auth = firebase.auth()
 
-export { db, auth }
+export const nicotines = db.collection('nicotines')
+
+export const auth = firebase.auth()
