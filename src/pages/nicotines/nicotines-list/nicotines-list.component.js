@@ -5,9 +5,13 @@ import NicotinesListItem from './nicotines-list-item'
 
 const NicotinesList = ({ items }) => {
   return (
-    <ul>
-      { items.map(item => <NicotinesListItem key={item.id} item={item} />)}
-    </ul>
+    <div>
+      { items.map(
+        item => (
+          <NicotinesListItem key={item.id} item={item} />
+        )
+      ) }
+    </div>
   )
 }
 
