@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import Container from '@material-ui/core/Container'
 
+import NicotinesList from './nicotines-list'
+
 const Nicotines = ({ items, onLoad }) => {
   useEffect(() => {
     onLoad()
@@ -10,7 +12,7 @@ const Nicotines = ({ items, onLoad }) => {
 
   return (
     <Container maxWidth='lg'>
-      { items.map(item => <li key={item.id}>{item.name}</li>)}
+      <NicotinesList items={items} />
     </Container>
   )
 }
