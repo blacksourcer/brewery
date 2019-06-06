@@ -12,7 +12,7 @@ import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 import Loader from '../../components/loader'
-import Error from './error'
+import Error from '../../components/error'
 
 import Home from '../../pages/home'
 import SignIn from '../../pages/sign-in'
@@ -21,7 +21,7 @@ import Nicotines from '../../pages/nicotines'
 import AppToolBar from './app-tool-bar'
 import AppDrawer from './app-drawer'
 
-import useStyles from './layout.styles'
+import useStyles from './app.styles'
 
 const App = ({
   initializing = false,
@@ -31,10 +31,6 @@ const App = ({
   onErrorClose,
   onSignOutButtonClick
 }) => {
-  if (initializing) {
-    return (<Loader />)
-  }
-
   const classes = useStyles()
 
   const [ drawerOpen, setDrawerOpen ] = useState(false)
@@ -48,6 +44,10 @@ const App = ({
   const nonAuthorizedComponent = (component) => () => isAuthorized
     ? <Redirect to='/' />
     : component
+
+  if (initializing) {
+    return (<Loader />)
+  }
 
   return (
     <Router>
