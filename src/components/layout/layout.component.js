@@ -6,10 +6,10 @@ import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 import Loader from '../loader'
+import Error from './error'
 
 import LayoutAppBar from './layout-app-bar'
 import LayoutDrawer from './layout-drawer'
-import LayoutError from './layout-error'
 
 import useStyles from './layout.styles'
 
@@ -50,7 +50,7 @@ const Layout = ({
           { children }
         </Container>
         { error &&
-          <LayoutError
+          <Error
             message={error.message}
             onClose={onErrorClose}
             data-test-id='layout_layout-error'

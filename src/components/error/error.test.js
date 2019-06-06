@@ -2,23 +2,23 @@ import React from 'react'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
-import LayoutError from './layout-error.component'
+import Error from './error.component'
 
 Enzyme.configure({ adapter: new Adapter() })
 
-describe('LayoutError component', () => {
+describe('Error component', () => {
   it('renders without crashing', () => {
-    shallow(<LayoutError message='test' />)
+    shallow(<Error message='test' />)
   })
 
   it('raises onClose', () => {
     const onCloseMock = jest.fn()
 
     const wrapper = shallow(
-      <LayoutError message='test' onClose={onCloseMock} />
+      <Error message='test' onClose={onCloseMock} />
     )
 
-    wrapper.find('[data-test-id="layout-error_snackbar"]').simulate('close')
+    wrapper.find('[data-test-id="error_snackbar"]').simulate('close')
 
     expect(onCloseMock).toHaveBeenCalled()
   })

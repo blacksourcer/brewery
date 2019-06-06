@@ -12,7 +12,7 @@ import CloseIcon from '@material-ui/icons/Close'
 import IconButton from '@material-ui/core/IconButton'
 import WarningIcon from '@material-ui/icons/Warning'
 
-import useStyles from './layout-message.styles'
+import useStyles from './message.styles'
 
 const variantIcon = {
   success: CheckCircleIcon,
@@ -21,7 +21,7 @@ const variantIcon = {
   info: InfoIcon
 }
 
-const LayoutMessage = ({ variant = 'success', message }) => {
+const Message = ({ variant = 'success', message }) => {
   const [ open, setOpen ] = useState(true)
 
   const handleClose = () => setOpen(false)
@@ -58,9 +58,9 @@ const LayoutMessage = ({ variant = 'success', message }) => {
   )
 }
 
-LayoutMessage.propTypes = {
+Message.propTypes = {
   variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']),
   message: PropTypes.string.isRequired
 }
 
-export default LayoutMessage
+export default Message

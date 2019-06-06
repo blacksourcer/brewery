@@ -8,9 +8,9 @@ import ErrorIcon from '@material-ui/icons/Error'
 import CloseIcon from '@material-ui/icons/Close'
 import IconButton from '@material-ui/core/IconButton'
 
-import useStyles from './layout-error.styles'
+import useStyles from './error.styles'
 
-const LayoutError = ({ message, onClose }) => {
+const Error = ({ message, onClose }) => {
   const [ open, setOpen ] = useState(true)
 
   const handleClose = () => {
@@ -28,7 +28,7 @@ const LayoutError = ({ message, onClose }) => {
       }}
       open={open}
       onClose={handleClose}
-      data-test-id='layout-error_snackbar'
+      data-test-id='error_snackbar'
     >
       <SnackbarContent
         className={classes.content}
@@ -54,9 +54,9 @@ const LayoutError = ({ message, onClose }) => {
   )
 }
 
-LayoutError.propTypes = {
+Error.propTypes = {
   message: PropTypes.string.isRequired,
   onClose: PropTypes.func
 }
 
-export default LayoutError
+export default Error
