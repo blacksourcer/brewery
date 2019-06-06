@@ -8,9 +8,9 @@ import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
 import MenuIcon from '@material-ui/icons/Menu'
 
-import useStyles from './layout-app-bar.styles'
+import useStyles from './app-tool-bar.styles'
 
-const LayoutAppBar = ({
+const AppToolBar = ({
   onMenuButtonClick,
   onSignOutButtonClick
 }) => {
@@ -25,7 +25,7 @@ const LayoutAppBar = ({
           color='inherit'
           aria-label='Menu'
           onClick={onMenuButtonClick}
-          data-test-id='layout-app-bar_menu-button'
+          data-test-id='app-tool-bar_menu-button'
         >
           <MenuIcon />
         </IconButton>
@@ -35,16 +35,16 @@ const LayoutAppBar = ({
         <Button
           color='inherit'
           onClick={onSignOutButtonClick}
-          data-test-id='layout-app-bar_sign-out-button'
+          data-test-id='app-tool-bar_sign-out-button'
         >Sign Out</Button>
       </Toolbar>
     </AppBar>
   )
 }
 
-LayoutAppBar.propTypes = {
+AppToolBar.propTypes = {
   onMenuButtonClick: PropTypes.func,
   onSignOutButtonClick: PropTypes.func
 }
 
-export default LayoutAppBar
+export default AppToolBar

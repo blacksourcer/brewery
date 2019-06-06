@@ -17,9 +17,9 @@ import CategoryIcon from '@material-ui/icons/Category'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 
-import useStyles from './layout-drawer.styles'
+import useStyles from './app-drawer.styles'
 
-const LayoutDrawer = ({ open }) => {
+const AppDrawer = ({ open }) => {
   const classes = useStyles()
 
   const [ ingridientsOpen, setIngridientsOpen ] = useState(false)
@@ -70,8 +70,8 @@ const LayoutDrawer = ({ open }) => {
   )
 }
 
-LayoutDrawer.propTypes = {
+AppDrawer.propTypes = {
   open: PropTypes.bool
 }
 
-export default LayoutDrawer
+export default AppDrawer
