@@ -11,17 +11,27 @@ const mockStore = configureMockStore([ thunk ])
 jest.mock('../../services/firebase')
 
 describe('nicotines mutations', () => {
-  it('creates valid SET_NICOTINES mutation', () => {
-    expect(actions.setNicotines([
-      { id: 'a1', name: 'Generic nicotine', pg: 100 },
-      { id: 'a2', name: 'Salt nicotine', pg: 50 }
+  it('creates valid SET mutation', () => {
+    expect(actions.set([
+      { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 },
+      { id: 'a2', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
     ]))
       .toEqual({
-        type: actions.SET_NICOTINES,
+        type: actions.SET,
         value: [
-          { id: 'a1', name: 'Generic nicotine', pg: 100 },
-          { id: 'a2', name: 'Salt nicotine', pg: 50 }
+          { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 },
+          { id: 'a2', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
         ]
+      })
+  })
+
+  it('creates valid ADD mutation', () => {
+    expect(actions.add(
+      { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 }
+    ))
+      .toEqual({
+        type: actions.ADD,
+        value: { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 }
       })
   })
 })
@@ -32,39 +42,84 @@ describe('nicotines fetch action', () => {
 
     nicotines.get.mockResolvedValue({
       docs: [
-        { id: 'a1', data: () => ({ name: 'Generic nicotine', pg: 100 }) },
-        { id: 'a2', data: () => ({ name: 'Salt nicotine', pg: 50 }) }
+        { id: 'a1', data: () => ({ name: 'Generic nicotine', pg: 100, strength: 20 }) },
+        { id: 'a2', data: () => ({ name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }) }
       ]
     })
 
-    return store.dispatch(actions.fetch())
+    store.dispatch(actions.fetch())
       .then(() => {
         expect(store.getActions()).toEqual([
           { type: appActions.SET_LOADING, value: true },
           {
-            type: actions.SET_NICOTINES,
+            type: actions.SET,
             value: [
-              { id: 'a1', name: 'Generic nicotine', pg: 100 },
-              { id: 'a2', name: 'Salt nicotine', pg: 50 }
+              { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 },
+              { id: 'a2', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
             ]
           },
           { type: appActions.SET_LOADING, value: false }
         ])
+
+        expect(nicotines.get).toHaveBeenCalled()
       })
   })
 
-  // it('sets error when authentication with firebase fails', () => {
-  //   const store = mockStore({ user: null })
+  it('sets error firebase request fails', () => {
+    const store = mockStore({ nicotines: [] })
 
-  //   auth.signInWithEmailAndPassword.mockRejectedValue({ message: 'error occured' })
+    nicotines.get.mockRejectedValue({ message: 'error occured' })
 
-  //   return store.dispatch(actions.signIn('user@domain.com', 'qweqwe123'))
-  //     .then(() => {
-  //       expect(store.getActions()).toEqual([
-  //         { type: actions.SET_LOADING, value: true },
-  //         { type: actions.SET_ERROR, value: { message: 'error occured' } },
-  //         { type: actions.SET_LOADING, value: false }
-  //       ])
-  //     })
-  // })
+    store.dispatch(actions.fetch())
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          { type: appActions.SET_LOADING, value: true },
+          { type: appActions.SET_ERROR, value: { message: 'error occured' } },
+          { type: appActions.SET_LOADING, value: false }
+        ])
+      })
+  })
+})
+
+describe('nicotines create action', () => {
+  it('calls firebase method and adds the item to the collection', () => {
+    const store = mockStore({ nicotines: [] })
+
+    nicotines.add.mockResolvedValue({ id: 'a1' })
+
+    store.dispatch(actions.create({
+      name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes'
+    }))
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          { type: appActions.SET_LOADING, value: true },
+          {
+            type: actions.ADD,
+            value: { id: 'a1', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
+          },
+          { type: appActions.SET_LOADING, value: false }
+        ])
+
+        expect(nicotines.add).toHaveBeenCalledWith({
+          name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes'
+        })
+      })
+  })
+
+  it('sets error firebase request fails', () => {
+    const store = mockStore({ nicotines: [] })
+
+    nicotines.add.mockRejectedValue({ message: 'error occured' })
+
+    return store.dispatch(actions.create({
+      name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes'
+    }))
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          { type: appActions.SET_LOADING, value: true },
+          { type: appActions.SET_ERROR, value: { message: 'error occured' } },
+          { type: appActions.SET_LOADING, value: false }
+        ])
+      })
+  })
 })

@@ -6,7 +6,7 @@ import SignIn from './sign-in.component'
 
 Enzyme.configure({ adapter: new Adapter() })
 
-describe('Sign In page', () => {
+describe('SignIn page', () => {
   it('renders without crashing', () => {
     shallow(<SignIn />)
   })
@@ -18,14 +18,14 @@ describe('Sign In page', () => {
       <SignIn onFormSubmit={onFormSubmitMock} />
     )
 
-    wrapper.find('[data-test-id="sign-in_text-field-email"]').simulate('change', {
+    wrapper.find('[data-test-id="sign-in_text-field_email"]').simulate('change', {
       target: {
         name: 'email',
         value: 'user@domain.com'
       }
     })
 
-    wrapper.find('[data-test-id="sign-in_text-field-password"]').simulate('change', {
+    wrapper.find('[data-test-id="sign-in_text-field_password"]').simulate('change', {
       target: {
         name: 'password',
         value: 'secret'

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import { fetch } from '../../store/nicotines/actions'
+import { fetch, create } from '../../store/nicotines/actions'
 
 import Nicotines from './nicotines.component'
 
@@ -9,7 +9,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: () => dispatch(fetch())
+  onLoad: () => dispatch(fetch()),
+  onFormSubmit: (item) => dispatch(create(item))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nicotines)

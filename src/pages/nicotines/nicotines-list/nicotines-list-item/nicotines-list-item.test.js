@@ -12,8 +12,19 @@ describe('NicotinesListItem', () => {
       id: 'a1',
       name: 'Generic nicotine',
       pg: 100,
-      strength: 20,
-      notes: 'Good one'
+      strength: 20
+    }
+
+    shallow(<NicotinesListItem item={item} />)
+  })
+
+  it('renders without crashing when a nicotine has notes', () => {
+    const item = {
+      id: 'a1',
+      name: 'Salt nicotine',
+      pg: 100,
+      strength: 72,
+      notes: 'Some notes'
     }
 
     shallow(<NicotinesListItem item={item} />)

@@ -12,12 +12,14 @@ describe('app reducers', () => {
   })
 
   it('handles SET_INITIALIZING mutation', () => {
-    expect(reducer({
+    const initialState = {
       initializing: false,
       loading: false,
       error: null,
       user: null
-    }, actions.setInitializing())).toEqual({
+    }
+
+    expect(reducer(initialState, actions.setInitializing())).toEqual({
       initializing: true,
       loading: false,
       error: null,
@@ -26,12 +28,14 @@ describe('app reducers', () => {
   })
 
   it('handles SET_LOADING mutation', () => {
-    expect(reducer({
+    const initialState = {
       initializing: false,
       loading: false,
       error: null,
       user: null
-    }, actions.setLoading())).toEqual({
+    }
+
+    expect(reducer(initialState, actions.setLoading())).toEqual({
       initializing: false,
       loading: true,
       error: null,
@@ -40,12 +44,14 @@ describe('app reducers', () => {
   })
 
   it('handles SET_ERROR mutation', () => {
-    expect(reducer({
+    const initialState = {
       initializing: false,
       loading: false,
       error: null,
       user: null
-    }, actions.setError({ message: 'a message' }))).toEqual({
+    }
+
+    expect(reducer(initialState, actions.setError({ message: 'a message' }))).toEqual({
       initializing: false,
       loading: false,
       error: { message: 'a message' },
@@ -54,12 +60,14 @@ describe('app reducers', () => {
   })
 
   it('handles SET_USER mutation', () => {
-    expect(reducer({
+    const initialState = {
       initializing: false,
       loading: false,
       error: null,
       user: null
-    }, actions.setUser({ id: 'a1', email: 'user@domain.com' }))).toEqual({
+    }
+
+    expect(reducer(initialState, actions.setUser({ id: 'a1', email: 'user@domain.com' }))).toEqual({
       initializing: false,
       loading: false,
       error: null,

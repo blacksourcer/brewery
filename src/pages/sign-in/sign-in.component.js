@@ -12,6 +12,8 @@ import useStyles from './sign-in.styles'
 const SignIn = ({ onFormSubmit }) => {
   const classes = useStyles()
 
+  const [values, setValues] = useState({ email: '', password: '' })
+
   const handleInputChange = e => {
     const { name, value } = e.target
     setValues({ ...values, [name]: value })
@@ -21,8 +23,6 @@ const SignIn = ({ onFormSubmit }) => {
     e.preventDefault()
     onFormSubmit(values.email, values.password)
   }
-
-  const [values, setValues] = useState({ email: '', password: '' })
 
   return (
     <Container maxWidth='xs'>
@@ -41,7 +41,7 @@ const SignIn = ({ onFormSubmit }) => {
           autoComplete='email'
           autoFocus
           onChange={handleInputChange}
-          data-test-id='sign-in_text-field-email'
+          data-test-id='sign-in_text-field_email'
         />
         <TextField
           name='password'
@@ -52,7 +52,7 @@ const SignIn = ({ onFormSubmit }) => {
           label='Password'
           autoComplete='current-password'
           onChange={handleInputChange}
-          data-test-id='sign-in_text-field-password'
+          data-test-id='sign-in_text-field_password'
         />
         <Button
           type='submit'

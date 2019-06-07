@@ -53,6 +53,8 @@ describe('app initialize action', () => {
 
     store.dispatch(actions.initialize())
 
+    expect(auth.onAuthStateChanged).toHaveBeenCalled()
+
     auth.onAuthStateChanged.mock.calls[0][0]({
       uid: 'a1',
       email: 'user@domain.com'
@@ -75,6 +77,8 @@ describe('app initialize action', () => {
 
     store.dispatch(actions.initialize())
 
+    expect(auth.onAuthStateChanged).toHaveBeenCalled()
+
     auth.onAuthStateChanged.mock.calls[0][0](null)
 
     expect(store.getActions()).toEqual([
@@ -96,13 +100,16 @@ describe('app signIn action', () => {
       }
     })
 
-    return store.dispatch(actions.signIn('user@domain.com', 'qweqwe123'))
+    store.dispatch(actions.signIn('user@domain.com', 'qweqwe123'))
       .then(() => {
         expect(store.getActions()).toEqual([
           { type: actions.SET_LOADING, value: true },
           { type: actions.SET_USER, value: { id: 's0mes1b0ls', email: 'user@domain.com' } },
           { type: actions.SET_LOADING, value: false }
         ])
+
+        expect(auth.signInWithEmailAndPassword)
+          .toHaveBeenCalledWith('user@domain.com', 'qweqwe123')
       })
   })
 
@@ -111,7 +118,7 @@ describe('app signIn action', () => {
 
     auth.signInWithEmailAndPassword.mockRejectedValue({ message: 'error occured' })
 
-    return store.dispatch(actions.signIn('user@domain.com', 'qweqwe123'))
+    store.dispatch(actions.signIn('user@domain.com', 'qweqwe123'))
       .then(() => {
         expect(store.getActions()).toEqual([
           { type: actions.SET_LOADING, value: true },
@@ -128,13 +135,15 @@ describe('app signOut action', () => {
 
     auth.signOut.mockResolvedValue()
 
-    return store.dispatch(actions.signOut())
+    store.dispatch(actions.signOut())
       .then(() => {
         expect(store.getActions()).toEqual([
           { type: actions.SET_LOADING, value: true },
           { type: actions.SET_USER, value: null },
           { type: actions.SET_LOADING, value: false }
         ])
+
+        expect(auth.signOut).toHaveBeenCalled()
       })
   })
 })
