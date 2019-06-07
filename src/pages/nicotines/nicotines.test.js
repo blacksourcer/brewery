@@ -6,7 +6,7 @@ import Nicotines from './nicotines.component'
 
 Enzyme.configure({ adapter: new Adapter() })
 
-describe('Nicotine page', () => {
+describe('Nicotines page', () => {
   it('renders without crashing', () => {
     const items = [
       { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 },

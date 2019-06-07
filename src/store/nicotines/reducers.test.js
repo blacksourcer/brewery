@@ -17,12 +17,25 @@ describe('nicotines reducers', () => {
   })
 
   it('handles ADD mutation', () => {
-    expect(reducer([
+    const initialState = [
       { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 }
-    ], actions.add(
+    ]
+
+    expect(reducer(initialState, actions.add(
       { id: 'a2', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
     ))).toEqual([
       { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 },
+      { id: 'a2', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
+    ])
+  })
+
+  it('handles REMOVE mutation', () => {
+    const initialState = [
+      { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 },
+      { id: 'a2', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
+    ]
+
+    expect(reducer(initialState, actions.remove('a1'))).toEqual([
       { id: 'a2', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
     ])
   })

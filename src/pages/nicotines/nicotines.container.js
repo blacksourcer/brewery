@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import { fetch, create } from '../../store/nicotines/actions'
+import { fetch, create, deleteById } from '../../store/nicotines/actions'
 
 import Nicotines from './nicotines.component'
 
@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onLoad: () => dispatch(fetch()),
-  onFormSubmit: (item) => dispatch(create(item))
+  onCreate: (item) => dispatch(create(item)),
+  onDelete: (id) => dispatch(deleteById(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nicotines)

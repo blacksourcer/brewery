@@ -1,4 +1,4 @@
-import { SET, ADD } from './actions'
+import { SET, ADD, REMOVE } from './actions'
 
 const initialState = []
 
@@ -9,6 +9,9 @@ const app = (state = initialState, action) => {
 
     case ADD:
       return [ ...state, action.value ]
+
+    case REMOVE:
+      return state.filter(item => item.id !== action.value)
 
     default:
       return state

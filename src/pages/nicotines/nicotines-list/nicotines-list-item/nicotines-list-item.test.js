@@ -29,4 +29,24 @@ describe('NicotinesListItem', () => {
 
     shallow(<NicotinesListItem item={item} />)
   })
+
+  it('raises onDeleteButtonClick', () => {
+    const onDeleteButtonClickMock = jest.fn()
+
+    const item = {
+      id: 'a1',
+      name: 'Salt nicotine',
+      pg: 100,
+      strength: 72,
+      notes: 'Some notes'
+    }
+
+    const wrapper = shallow(
+      <NicotinesListItem item={item} onDeleteButtonClick={onDeleteButtonClickMock} />
+    )
+
+    wrapper.find('[data-test-id="nicotines-list-item_button_delete"]').simulate('click')
+
+    expect(onDeleteButtonClickMock).toHaveBeenCalledWith()
+  })
 })

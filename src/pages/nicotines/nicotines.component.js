@@ -11,7 +11,12 @@ import NicotinesForm from './nicotines-form'
 
 import useStyles from './nicotines.styles'
 
-const Nicotines = ({ items, onLoad, onFormSubmit }) => {
+const Nicotines = ({
+  items,
+  onLoad,
+  onCreate,
+  onDelete
+}) => {
   useEffect(() => {
     onLoad()
   }, [ onLoad ])
@@ -33,9 +38,9 @@ const Nicotines = ({ items, onLoad, onFormSubmit }) => {
       <NicotinesForm
         open={formOpen}
         onClose={() => setFormOpen(false)}
-        onSubmit={onFormSubmit}
+        onSubmit={onCreate}
       />
-      <NicotinesList items={items} />
+      <NicotinesList items={items} onItemDelete={onDelete} />
     </Container>
   )
 }
@@ -51,7 +56,8 @@ Nicotines.propTypes = {
     })
   ),
   onLoad: PropTypes.func,
-  onFormSubmit: PropTypes.func
+  onCreate: PropTypes.func,
+  onDelete: PropTypes.func
 }
 
 export default Nicotines

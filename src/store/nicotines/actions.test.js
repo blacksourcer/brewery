@@ -34,6 +34,14 @@ describe('nicotines mutations', () => {
         value: { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 }
       })
   })
+
+  it('creates valid REMOVE mutation', () => {
+    expect(actions.remove('a1'))
+      .toEqual({
+        type: actions.REMOVE,
+        value: 'a1'
+      })
+  })
 })
 
 describe('nicotines fetch action', () => {
@@ -111,9 +119,55 @@ describe('nicotines create action', () => {
 
     nicotines.add.mockRejectedValue({ message: 'error occured' })
 
-    return store.dispatch(actions.create({
+    store.dispatch(actions.create({
       name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes'
     }))
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          { type: appActions.SET_LOADING, value: true },
+          { type: appActions.SET_ERROR, value: { message: 'error occured' } },
+          { type: appActions.SET_LOADING, value: false }
+        ])
+      })
+  })
+})
+
+describe('nicotines deleteById action', () => {
+  it('calls firebase method and deletes the item from the collection', () => {
+    const store = mockStore({ nicotines: [
+      { id: 'a1', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
+    ] })
+
+    nicotines.doc = jest.fn(() => ({
+      delete: jest.fn().mockResolvedValue()
+    }))
+
+    store.dispatch(actions.deleteById('a1'))
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          { type: appActions.SET_LOADING, value: true },
+          {
+            type: actions.DEL,
+            value: 'a1'
+          },
+          { type: appActions.SET_LOADING, value: false }
+        ])
+
+        expect(nicotines.doc).toHaveBeenCalledWith('a1')
+        expect(nicotines.doc.delete).toHaveBeenCalled()
+      })
+  })
+
+  it('sets error firebase request fails', () => {
+    const store = mockStore({ nicotines: [
+      { id: 'a1', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
+    ] })
+
+    nicotines.doc = jest.fn(() => ({
+      delete: jest.fn().mockRejectedValue({ message: 'error occured' })
+    }))
+
+    store.dispatch(actions.deleteById('a1'))
       .then(() => {
         expect(store.getActions()).toEqual([
           { type: appActions.SET_LOADING, value: true },
