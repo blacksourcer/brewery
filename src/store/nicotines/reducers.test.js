@@ -29,6 +29,20 @@ describe('nicotines reducers', () => {
     ])
   })
 
+  it('handles EDIT mutation', () => {
+    const initialState = [
+      { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 },
+      { id: 'a2', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
+    ]
+
+    expect(reducer(initialState, actions.edit(
+      { id: 'a2', name: 'Salt nicotine', pg: 70, strength: 56, notes: 'Some amended notes' }
+    ))).toEqual([
+      { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 },
+      { id: 'a2', name: 'Salt nicotine', pg: 70, strength: 56, notes: 'Some amended notes' }
+    ])
+  })
+
   it('handles REMOVE mutation', () => {
     const initialState = [
       { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 },

@@ -4,6 +4,7 @@ import { setLoading, setError } from '../app/actions'
 
 export const SET = 'NICOTINES_SET'
 export const ADD = 'NICOTINES_ADD'
+export const EDIT = 'NICOTINES_EDIT'
 export const REMOVE = 'NICOTINES_REMOVE'
 
 export const set = (value = []) => ({
@@ -13,6 +14,11 @@ export const set = (value = []) => ({
 
 export const add = (value) => ({
   type: ADD,
+  value
+})
+
+export const edit = (value) => ({
+  type: EDIT,
   value
 })
 
@@ -39,6 +45,15 @@ export const create = (item) => dispatch => {
 
   return nicotines.add(item)
     .then(doc => dispatch(add({ id: doc.id, ...item })))
+    .catch((err) => dispatch(setError(err)))
+    .finally(() => dispatch(setLoading(false)))
+}
+
+export const update = (item) => dispatch => {
+  dispatch(setLoading())
+
+  return nicotines.doc(item.id).update(item)
+    .then(() => dispatch(edit(item)))
     .catch((err) => dispatch(setError(err)))
     .finally(() => dispatch(setLoading(false)))
 }
