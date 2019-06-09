@@ -103,7 +103,10 @@ describe('nicotines create action', () => {
   it('calls firebase method and adds the item to the collection', () => {
     const store = mockStore({ nicotines: [] })
 
-    nicotines.add.mockResolvedValue({ id: 'a1' })
+    nicotines.add.mockResolvedValue({
+      id: 'a1',
+      data: () => ({ name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' })
+    })
 
     store.dispatch(actions.create({
       name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes'
@@ -168,7 +171,9 @@ describe('nicotines update action', () => {
         ])
 
         expect(nicotines.doc).toHaveBeenCalledWith('a1')
-        expect(mockUpdate).toHaveBeenCalled()
+        expect(mockUpdate).toHaveBeenCalledWith(
+          { name: 'Generic nicotine', pg: 100, strength: 20 }
+        )
       })
   })
 

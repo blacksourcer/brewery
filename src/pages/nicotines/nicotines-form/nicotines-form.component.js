@@ -23,6 +23,10 @@ const NicotinesForm = ({ open, originalItem = defaultItem, onClose, onSubmit }) 
 
   const [item, setItem] = useState(originalItem)
 
+  React.useEffect(() => {
+    setItem(originalItem)
+  }, [originalItem])
+
   const handleInputChange = e => {
     const { name, value } = e.target
     setItem({ ...item, [name]: value })

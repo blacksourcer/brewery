@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography'
 
 import useStyles from './nicotines-list-item.styles'
 
-const NicotinesListItem = ({ item, onDeleteButtonClick }) => {
+const NicotinesListItem = ({ item, onEditButtonClick, onDeleteButtonClick }) => {
   const classes = useStyles()
 
   return (
@@ -27,7 +27,12 @@ const NicotinesListItem = ({ item, onDeleteButtonClick }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size='small' color='primary'>
+        <Button
+          size='small'
+          color='primary'
+          onClick={onEditButtonClick}
+          data-test-id='nicotines-list-item_button_edit'
+        >
           Edit
         </Button>
         <Button
@@ -51,6 +56,7 @@ NicotinesListItem.propTypes = {
     strength: PropTypes.number.isRequired,
     notes: PropTypes.string
   }),
+  onEditButtonClick: PropTypes.func,
   onDeleteButtonClick: PropTypes.func
 }
 

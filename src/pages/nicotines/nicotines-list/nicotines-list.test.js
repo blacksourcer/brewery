@@ -20,6 +20,23 @@ describe('NicotinesList', () => {
     shallow(<NicotinesList items={items} />)
   })
 
+  it('raises onItemEdit', () => {
+    const onItemEditMock = jest.fn()
+
+    const items = [
+      { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 },
+      { id: 'a2', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
+    ]
+
+    const wrapper = shallow(
+      <NicotinesList items={items} onItemEdit={onItemEditMock} />
+    )
+
+    wrapper.find('[data-test-id="nicotines-list_nicotines-list-item_a2"]').simulate('editButtonClick')
+
+    expect(onItemEditMock).toHaveBeenCalledWith('a2')
+  })
+
   it('raises onItemDelete', () => {
     const onItemDeleteMock = jest.fn()
 

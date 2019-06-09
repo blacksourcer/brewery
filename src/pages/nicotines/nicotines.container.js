@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import { fetch, create, deleteById } from '../../store/nicotines/actions'
+import { fetch, create, update, deleteById } from '../../store/nicotines/actions'
 
 import Nicotines from './nicotines.component'
 
@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onLoad: () => dispatch(fetch()),
   onCreate: (item) => dispatch(create(item)),
+  onUpdate: (item) => dispatch(update(item)),
   onDelete: (id) => dispatch(deleteById(id))
 })
 

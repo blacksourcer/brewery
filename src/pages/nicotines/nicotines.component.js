@@ -15,6 +15,7 @@ const Nicotines = ({
   items,
   onLoad,
   onCreate,
+  onUpdate,
   onDelete
 }) => {
   useEffect(() => {
@@ -22,8 +23,28 @@ const Nicotines = ({
   }, [ onLoad ])
 
   const [ formOpen, setFormOpen ] = useState(false)
+  const [ editingItem, setEditingItem ] = useState()
 
   const classes = useStyles()
+
+  const handleNicotinesFormSubmit = (item) => {
+    setFormOpen(false)
+
+    item.id
+      ? onUpdate && onUpdate(item)
+      : onCreate && onCreate(item)
+  }
+
+  const handleNicotinesListItemEdit = (id) => {
+    const item = items.find(item => item.id === id)
+
+    setEditingItem(item)
+    setFormOpen(true)
+  }
+
+  const handleNicotinesListItemDelete = (id) => {
+    onDelete && onDelete(id)
+  }
 
   return (
     <Container maxWidth='lg'>
@@ -37,10 +58,14 @@ const Nicotines = ({
       </Fab>
       <NicotinesForm
         open={formOpen}
+        originalItem={editingItem}
         onClose={() => setFormOpen(false)}
-        onSubmit={onCreate}
+        onSubmit={handleNicotinesFormSubmit}
       />
-      <NicotinesList items={items} onItemDelete={onDelete} />
+      <NicotinesList
+        items={items}
+        onItemEdit={handleNicotinesListItemEdit}
+        onItemDelete={handleNicotinesListItemDelete} />
     </Container>
   )
 }
@@ -57,6 +82,7 @@ Nicotines.propTypes = {
   ),
   onLoad: PropTypes.func,
   onCreate: PropTypes.func,
+  onUpdate: PropTypes.func,
   onDelete: PropTypes.func
 }
 

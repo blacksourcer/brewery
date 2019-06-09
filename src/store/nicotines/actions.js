@@ -52,7 +52,9 @@ export const create = (item) => dispatch => {
 export const update = (item) => dispatch => {
   dispatch(setLoading())
 
-  return nicotines.doc(item.id).update(item)
+  const { id, ...doc } = item
+
+  return nicotines.doc(item.id).update(doc)
     .then(() => dispatch(edit(item)))
     .catch((err) => dispatch(setError(err)))
     .finally(() => dispatch(setLoading(false)))
