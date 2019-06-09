@@ -11,6 +11,12 @@ import NicotinesForm from './nicotines-form'
 
 import useStyles from './nicotines.styles'
 
+const defaultItem = {
+  name: '',
+  pg: 100,
+  strength: 20
+}
+
 const Nicotines = ({
   items,
   onLoad,
@@ -19,15 +25,15 @@ const Nicotines = ({
   onDelete
 }) => {
   useEffect(() => {
-    onLoad()
+    onLoad && onLoad()
   }, [ onLoad ])
 
   const [ formOpen, setFormOpen ] = useState(false)
-  const [ editingItem, setEditingItem ] = useState()
+  const [ formItem, setFormItem ] = useState(defaultItem)
 
   const classes = useStyles()
 
-  const handleNicotinesFormSubmit = (item) => {
+  const handleSubmit = (item) => {
     setFormOpen(false)
 
     item.id
@@ -35,14 +41,17 @@ const Nicotines = ({
       : onCreate && onCreate(item)
   }
 
-  const handleNicotinesListItemEdit = (id) => {
-    const item = items.find(item => item.id === id)
-
-    setEditingItem(item)
+  const handleCreate = () => {
+    setFormItem(defaultItem)
     setFormOpen(true)
   }
 
-  const handleNicotinesListItemDelete = (id) => {
+  const handleUpdate = (item) => {
+    setFormItem(item)
+    setFormOpen(true)
+  }
+
+  const handleDelete = (id) => {
     onDelete && onDelete(id)
   }
 
@@ -52,20 +61,23 @@ const Nicotines = ({
         color='primary'
         aria-label='Add'
         className={classes.fab}
-        onClick={() => setFormOpen(true)}
+        onClick={handleCreate}
       >
         <AddIcon />
       </Fab>
       <NicotinesForm
         open={formOpen}
-        item={editingItem}
+        item={formItem}
         onClose={() => setFormOpen(false)}
-        onSubmit={handleNicotinesFormSubmit}
+        onSubmit={handleSubmit}
+        data-test-id='nicotines_nicotines-form'
       />
       <NicotinesList
         items={items}
-        onItemEdit={handleNicotinesListItemEdit}
-        onItemDelete={handleNicotinesListItemDelete} />
+        onUpdate={handleUpdate}
+        onDelete={handleDelete}
+        data-test-id='nicotines_nicotines-list'
+      />
     </Container>
   )
 }

@@ -8,12 +8,7 @@ Enzyme.configure({ adapter: new Adapter() })
 
 describe('NicotinesForm component', () => {
   it('renders without crashing', () => {
-    shallow(<NicotinesForm />)
-  })
-
-  it('renders without crashing when an item provided', () => {
     const item = {
-      id: 'a1',
       name: 'Generic nicotine',
       pg: 100,
       strength: 20
@@ -24,10 +19,10 @@ describe('NicotinesForm component', () => {
 
   it('renders without crashing when an item with notes provided', () => {
     const item = {
-      id: 'a2',
-      name: 'Salt nicotine',
+      id: 'a1',
+      name: 'Generic nicotine',
       pg: 100,
-      strength: 72,
+      strength: 20,
       notes: 'Some notes'
     }
 
@@ -35,10 +30,16 @@ describe('NicotinesForm component', () => {
   })
 
   it('raises onSubmit', () => {
+    const item = {
+      name: '',
+      pg: 100,
+      strength: 20
+    }
+
     const onSubmitMock = jest.fn()
 
     const wrapper = shallow(
-      <NicotinesForm onSubmit={onSubmitMock} />
+      <NicotinesForm item={item} onSubmit={onSubmitMock} />
     )
 
     wrapper.find('[data-test-id="nicotines-form_text-field_name"]').simulate('change', {

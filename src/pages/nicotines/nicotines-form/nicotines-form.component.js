@@ -12,13 +12,7 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 
 import useStyles from './nicotines-form.styles'
 
-const defaultItem = {
-  name: '',
-  pg: 100,
-  strength: 20
-}
-
-const NicotinesForm = ({ open, item = defaultItem, onSubmit, onClose }) => {
+const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
   const classes = useStyles()
 
   const [currentItem, setCurrentItem] = useState(item)
@@ -27,7 +21,7 @@ const NicotinesForm = ({ open, item = defaultItem, onSubmit, onClose }) => {
     setCurrentItem(item)
   }, [item])
 
-  const handleInputChange = e => {
+  const handleChange = e => {
     const { name, value } = e.target
     setCurrentItem({ ...currentItem, [name]: value })
   }
@@ -38,13 +32,13 @@ const NicotinesForm = ({ open, item = defaultItem, onSubmit, onClose }) => {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      noValidate
-      autoComplete='off'
-      data-test-id='nicotines-form_form'
-    >
-      <Dialog open={open} onClose={onClose} aria-labelledby='nicotines-form_dialog-title'>
+    <Dialog open={open} onClose={onClose} aria-labelledby='nicotines-form_dialog-title'>
+      <form
+        onSubmit={handleSubmit}
+        noValidate
+        autoComplete='off'
+        data-test-id='nicotines-form_form'
+      >
         <DialogTitle id='nicotines-form_dialog-title'>
           { item.id ? `Edit '${item.name}'` : 'Add new nicotine' }
         </DialogTitle>
@@ -60,7 +54,7 @@ const NicotinesForm = ({ open, item = defaultItem, onSubmit, onClose }) => {
               autoFocus
               label='Title'
               fullWidth
-              onChange={handleInputChange}
+              onChange={handleChange}
               data-test-id='nicotines-form_text-field_name'
             />
           </div>
@@ -71,7 +65,7 @@ const NicotinesForm = ({ open, item = defaultItem, onSubmit, onClose }) => {
               value={currentItem.pg}
               className={classes.textField}
               label='PG'
-              onChange={handleInputChange}
+              onChange={handleChange}
               data-test-id='nicotines-form_text-field_pg'
             />
             <TextField
@@ -88,7 +82,7 @@ const NicotinesForm = ({ open, item = defaultItem, onSubmit, onClose }) => {
               value={currentItem.strength}
               className={classes.textField}
               label='Strength, mg/ml'
-              onChange={handleInputChange}
+              onChange={handleChange}
               data-test-id='nicotines-form_text-field_strength'
             />
           </div>
@@ -100,7 +94,7 @@ const NicotinesForm = ({ open, item = defaultItem, onSubmit, onClose }) => {
               multiline
               label='Notes'
               fullWidth
-              onChange={handleInputChange}
+              onChange={handleChange}
               data-test-id='nicotines-form_text-field_notes'
             />
           </div>
@@ -113,8 +107,8 @@ const NicotinesForm = ({ open, item = defaultItem, onSubmit, onClose }) => {
             Submit
           </Button>
         </DialogActions>
-      </Dialog>
-    </form>
+      </form>
+    </Dialog>
   )
 }
 
@@ -126,7 +120,7 @@ NicotinesForm.propTypes = {
     pg: PropTypes.number.isRequired,
     strength: PropTypes.number.isRequired,
     notes: PropTypes.string
-  }),
+  }).isRequired,
   onSubmit: PropTypes.func,
   onClose: PropTypes.func
 }

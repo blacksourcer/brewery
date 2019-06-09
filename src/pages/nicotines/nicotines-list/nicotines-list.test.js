@@ -6,7 +6,7 @@ import NicotinesList from './nicotines-list.component'
 
 Enzyme.configure({ adapter: new Adapter() })
 
-describe('NicotinesList', () => {
+describe('NicotinesList component', () => {
   it('renders without crashing when no items are provided', () => {
     shallow(<NicotinesList items={[]} />)
   })
@@ -20,8 +20,8 @@ describe('NicotinesList', () => {
     shallow(<NicotinesList items={items} />)
   })
 
-  it('raises onItemEdit', () => {
-    const onItemEditMock = jest.fn()
+  it('raises onUpdate', () => {
+    const onUpdateMock = jest.fn()
 
     const items = [
       { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 },
@@ -29,16 +29,16 @@ describe('NicotinesList', () => {
     ]
 
     const wrapper = shallow(
-      <NicotinesList items={items} onItemEdit={onItemEditMock} />
+      <NicotinesList items={items} onUpdate={onUpdateMock} />
     )
 
-    wrapper.find('[data-test-id="nicotines-list_nicotines-list-item_a2"]').simulate('editButtonClick')
+    wrapper.find('[data-test-id="nicotines-list_nicotines-list-item_a2"]').simulate('update')
 
-    expect(onItemEditMock).toHaveBeenCalledWith('a2')
+    expect(onUpdateMock).toHaveBeenCalled()
   })
 
-  it('raises onItemDelete', () => {
-    const onItemDeleteMock = jest.fn()
+  it('raises onDelete', () => {
+    const onDeleteMock = jest.fn()
 
     const items = [
       { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 },
@@ -46,11 +46,11 @@ describe('NicotinesList', () => {
     ]
 
     const wrapper = shallow(
-      <NicotinesList items={items} onItemDelete={onItemDeleteMock} />
+      <NicotinesList items={items} onDelete={onDeleteMock} />
     )
 
-    wrapper.find('[data-test-id="nicotines-list_nicotines-list-item_a2"]').simulate('deleteButtonClick')
+    wrapper.find('[data-test-id="nicotines-list_nicotines-list-item_a2"]').simulate('delete')
 
-    expect(onItemDeleteMock).toHaveBeenCalledWith('a2')
+    expect(onDeleteMock).toHaveBeenCalled()
   })
 })

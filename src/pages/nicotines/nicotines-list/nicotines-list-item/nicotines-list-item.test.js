@@ -6,7 +6,7 @@ import NicotinesListItem from './nicotines-list-item.component'
 
 Enzyme.configure({ adapter: new Adapter() })
 
-describe('NicotinesListItem', () => {
+describe('NicotinesListItem component', () => {
   it('renders without crashing', () => {
     const item = {
       id: 'a1',
@@ -30,8 +30,8 @@ describe('NicotinesListItem', () => {
     shallow(<NicotinesListItem item={item} />)
   })
 
-  it('raises onEditButtonClick', () => {
-    const onEditButtonClickMock = jest.fn()
+  it('raises onUpdate', () => {
+    const onUpdateMock = jest.fn()
 
     const item = {
       id: 'a1',
@@ -42,16 +42,16 @@ describe('NicotinesListItem', () => {
     }
 
     const wrapper = shallow(
-      <NicotinesListItem item={item} onEditButtonClick={onEditButtonClickMock} />
+      <NicotinesListItem item={item} onUpdate={onUpdateMock} />
     )
 
     wrapper.find('[data-test-id="nicotines-list-item_button_edit"]').simulate('click')
 
-    expect(onEditButtonClickMock).toHaveBeenCalledWith()
+    expect(onUpdateMock).toHaveBeenCalledWith(item)
   })
 
-  it('raises onDeleteButtonClick', () => {
-    const onDeleteButtonClickMock = jest.fn()
+  it('raises onDelete', () => {
+    const onDeleteMock = jest.fn()
 
     const item = {
       id: 'a1',
@@ -62,11 +62,11 @@ describe('NicotinesListItem', () => {
     }
 
     const wrapper = shallow(
-      <NicotinesListItem item={item} onDeleteButtonClick={onDeleteButtonClickMock} />
+      <NicotinesListItem item={item} onDelete={onDeleteMock} />
     )
 
     wrapper.find('[data-test-id="nicotines-list-item_button_delete"]').simulate('click')
 
-    expect(onDeleteButtonClickMock).toHaveBeenCalledWith()
+    expect(onDeleteMock).toHaveBeenCalledWith('a1')
   })
 })

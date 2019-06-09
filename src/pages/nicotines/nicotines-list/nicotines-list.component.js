@@ -3,10 +3,7 @@ import PropTypes from 'prop-types'
 
 import NicotinesListItem from './nicotines-list-item'
 
-const NicotinesList = ({ items, onItemEdit, onItemDelete }) => {
-  const handleItemEdit = (id) => onItemEdit && onItemEdit(id)
-  const handleItemDelete = (id) => onItemDelete && onItemDelete(id)
-
+const NicotinesList = ({ items, onUpdate, onDelete }) => {
   return (
     <div>
       { items.map(
@@ -14,8 +11,8 @@ const NicotinesList = ({ items, onItemEdit, onItemDelete }) => {
           <NicotinesListItem
             key={item.id}
             item={item}
-            onEditButtonClick={() => handleItemEdit(item.id)}
-            onDeleteButtonClick={() => handleItemDelete(item.id)}
+            onUpdate={onUpdate}
+            onDelete={onDelete}
             data-test-id={`nicotines-list_nicotines-list-item_${item.id}`}
           />
         )
@@ -34,8 +31,8 @@ NicotinesList.propTypes = {
       notes: PropTypes.string
     })
   ),
-  onItemEdit: PropTypes.func,
-  onItemDelete: PropTypes.func
+  onUpdate: PropTypes.func,
+  onDelete: PropTypes.func
 }
 
 export default NicotinesList
