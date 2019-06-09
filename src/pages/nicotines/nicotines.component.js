@@ -58,7 +58,7 @@ const Nicotines = ({
       </Fab>
       <NicotinesForm
         open={formOpen}
-        originalItem={editingItem}
+        item={editingItem}
         onClose={() => setFormOpen(false)}
         onSubmit={handleNicotinesFormSubmit}
       />

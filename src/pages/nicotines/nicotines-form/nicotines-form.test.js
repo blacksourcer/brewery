@@ -11,7 +11,7 @@ describe('NicotinesForm component', () => {
     shallow(<NicotinesForm />)
   })
 
-  it('renders without crashing with item provided', () => {
+  it('renders without crashing when an item provided', () => {
     const item = {
       id: 'a1',
       name: 'Generic nicotine',
@@ -22,7 +22,7 @@ describe('NicotinesForm component', () => {
     shallow(<NicotinesForm item={item} />)
   })
 
-  it('renders without crashing with item with notes provided', () => {
+  it('renders without crashing when an item with notes provided', () => {
     const item = {
       id: 'a2',
       name: 'Salt nicotine',
@@ -51,14 +51,14 @@ describe('NicotinesForm component', () => {
     wrapper.find('[data-test-id="nicotines-form_text-field_pg"]').simulate('change', {
       target: {
         name: 'pg',
-        value: 100
+        value: 50
       }
     })
 
     wrapper.find('[data-test-id="nicotines-form_text-field_strength"]').simulate('change', {
       target: {
         name: 'strength',
-        value: 20
+        value: 72
       }
     })
 
@@ -68,8 +68,8 @@ describe('NicotinesForm component', () => {
 
     expect(onSubmitMock).toHaveBeenCalledWith({
       name: 'Generic nicotine',
-      pg: 100,
-      strength: 20
+      pg: 50,
+      strength: 72
     })
   })
 })
