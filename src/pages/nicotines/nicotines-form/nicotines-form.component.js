@@ -21,6 +21,10 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
     setCurrentItem(item)
   }, [item])
 
+  const isItemValid = item => item.name &&
+    item.pg &&
+    item.strength
+
   const handleChange = e => {
     const { name, value, type } = e.target
 
@@ -33,7 +37,9 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    onSubmit && onSubmit(currentItem)
+
+    onSubmit &&
+      onSubmit(currentItem)
   }
 
   return (
@@ -55,6 +61,7 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
             <TextField
               name='name'
               value={currentItem.name}
+              required
               className={classes.textField}
               autoFocus
               label='Title'
@@ -68,6 +75,7 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
               name='pg'
               type='number'
               value={currentItem.pg}
+              required
               className={classes.textField}
               label='PG'
               onChange={handleChange}
@@ -85,6 +93,7 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
               name='strength'
               type='number'
               value={currentItem.strength}
+              required
               className={classes.textField}
               label='Strength, mg/ml'
               onChange={handleChange}
@@ -108,7 +117,7 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
           <Button color='primary' onClick={onClose}>
             Cancel
           </Button>
-          <Button type='submit' color='primary'>
+          <Button disabled={!isItemValid(currentItem)} type='submit' color='primary'>
             Submit
           </Button>
         </DialogActions>
