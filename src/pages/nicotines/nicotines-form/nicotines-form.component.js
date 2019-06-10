@@ -22,8 +22,13 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
   }, [item])
 
   const handleChange = e => {
-    const { name, value } = e.target
-    setCurrentItem({ ...currentItem, [name]: value })
+    const { name, value, type } = e.target
+
+    const parsedValue = type === 'number'
+      ? parseInt(value)
+      : value
+
+    setCurrentItem({ ...currentItem, [name]: parsedValue })
   }
 
   const handleSubmit = e => {

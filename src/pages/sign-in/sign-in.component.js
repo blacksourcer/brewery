@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button'
 
 import useStyles from './sign-in.styles'
 
-const SignIn = ({ onFormSubmit }) => {
+const SignIn = ({ onSubmit }) => {
   const classes = useStyles()
 
   const [values, setValues] = useState({ email: '', password: '' })
@@ -21,7 +21,7 @@ const SignIn = ({ onFormSubmit }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    onFormSubmit(values.email, values.password)
+    onSubmit(values.email, values.password)
   }
 
   return (
@@ -81,7 +81,7 @@ const SignIn = ({ onFormSubmit }) => {
 }
 
 SignIn.propTypes = {
-  onFormSubmit: PropTypes.func
+  onSubmit: PropTypes.func
 }
 
 export default SignIn

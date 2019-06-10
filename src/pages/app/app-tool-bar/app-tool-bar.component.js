@@ -11,8 +11,8 @@ import MenuIcon from '@material-ui/icons/Menu'
 import useStyles from './app-tool-bar.styles'
 
 const AppToolBar = ({
-  onMenuButtonClick,
-  onSignOutButtonClick
+  onMenu,
+  onSignOut
 }) => {
   const classes = useStyles()
 
@@ -24,7 +24,7 @@ const AppToolBar = ({
           className={classes.menuButton}
           color='inherit'
           aria-label='Menu'
-          onClick={onMenuButtonClick}
+          onClick={onMenu}
           data-test-id='app-tool-bar_menu-button'
         >
           <MenuIcon />
@@ -34,7 +34,7 @@ const AppToolBar = ({
         </Typography>
         <Button
           color='inherit'
-          onClick={onSignOutButtonClick}
+          onClick={onSignOut}
           data-test-id='app-tool-bar_sign-out-button'
         >Sign Out</Button>
       </Toolbar>
@@ -43,8 +43,8 @@ const AppToolBar = ({
 }
 
 AppToolBar.propTypes = {
-  onMenuButtonClick: PropTypes.func,
-  onSignOutButtonClick: PropTypes.func
+  onMenu: PropTypes.func,
+  onSignOut: PropTypes.func
 }
 
 export default AppToolBar

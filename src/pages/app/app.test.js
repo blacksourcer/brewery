@@ -47,20 +47,20 @@ describe('App component', () => {
     expect(onErrorCloseMock).toHaveBeenCalled()
   })
 
-  it('raises onSignOutButtonClick', () => {
+  it('raises onSignOut', () => {
     const user = {
       id: 's0mes1b0ls',
       email: 'user@domain.com'
     }
 
-    const onSignOutButtonClickMock = jest.fn()
+    const onSignOutMock = jest.fn()
 
     const wrapper = shallow(
-      <App user={user} onSignOutButtonClick={onSignOutButtonClickMock} />
+      <App user={user} onSignOut={onSignOutMock} />
     )
 
-    wrapper.find('[data-test-id="app_app-tool-bar"]').simulate('signOutButtonClick')
+    wrapper.find('[data-test-id="app_app-tool-bar"]').simulate('signOut')
 
-    expect(onSignOutButtonClickMock).toHaveBeenCalled()
+    expect(onSignOutMock).toHaveBeenCalled()
   })
 })

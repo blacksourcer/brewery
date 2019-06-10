@@ -11,11 +11,11 @@ describe('SignIn page', () => {
     shallow(<SignIn />)
   })
 
-  it('raises onFormSubmit', () => {
-    const onFormSubmitMock = jest.fn()
+  it('raises onSubmit', () => {
+    const onSubmitMock = jest.fn()
 
     const wrapper = shallow(
-      <SignIn onFormSubmit={onFormSubmitMock} />
+      <SignIn onSubmit={onSubmitMock} />
     )
 
     wrapper.find('[data-test-id="sign-in_text-field_email"]').simulate('change', {
@@ -36,6 +36,6 @@ describe('SignIn page', () => {
       preventDefault: () => {}
     })
 
-    expect(onFormSubmitMock).toHaveBeenCalledWith('user@domain.com', 'secret')
+    expect(onSubmitMock).toHaveBeenCalledWith('user@domain.com', 'secret')
   })
 })

@@ -11,27 +11,27 @@ describe('AppToolBar component', () => {
     shallow(<AppToolBar />)
   })
 
-  it('raises onMenuButtonClick', () => {
-    const onMenuButtonClickMock = jest.fn()
+  it('raises onMenu', () => {
+    const onMenuMock = jest.fn()
 
     const wrapper = shallow(
-      <AppToolBar onMenuButtonClick={onMenuButtonClickMock} />
+      <AppToolBar onMenu={onMenuMock} />
     )
 
     wrapper.find('[data-test-id="app-tool-bar_menu-button"]').simulate('click')
 
-    expect(onMenuButtonClickMock).toHaveBeenCalled()
+    expect(onMenuMock).toHaveBeenCalled()
   })
 
-  it('raises onSignOutButtonClick', () => {
-    const onSignOutButtonClickMock = jest.fn()
+  it('raises onSignOut', () => {
+    const onSignOutMock = jest.fn()
 
     const wrapper = shallow(
-      <AppToolBar onSignOutButtonClick={onSignOutButtonClickMock} />
+      <AppToolBar onSignOut={onSignOutMock} />
     )
 
     wrapper.find('[data-test-id="app-tool-bar_sign-out-button"]').simulate('click')
 
-    expect(onSignOutButtonClickMock).toHaveBeenCalled()
+    expect(onSignOutMock).toHaveBeenCalled()
   })
 })

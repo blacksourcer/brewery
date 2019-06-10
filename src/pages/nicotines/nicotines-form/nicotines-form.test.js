@@ -52,14 +52,16 @@ describe('NicotinesForm component', () => {
     wrapper.find('[data-test-id="nicotines-form_text-field_pg"]').simulate('change', {
       target: {
         name: 'pg',
-        value: 50
+        value: '50',
+        type: 'number'
       }
     })
 
     wrapper.find('[data-test-id="nicotines-form_text-field_strength"]').simulate('change', {
       target: {
         name: 'strength',
-        value: 72
+        value: '72',
+        type: 'number'
       }
     })
 

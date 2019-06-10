@@ -29,7 +29,7 @@ const App = ({
   user,
   error,
   onErrorClose,
-  onSignOutButtonClick
+  onSignOut
 }) => {
   const classes = useStyles()
 
@@ -55,8 +55,8 @@ const App = ({
         <CssBaseline />
         { isAuthorized &&
           <AppToolBar
-            onMenuButtonClick={() => setDrawerOpen(!drawerOpen)}
-            onSignOutButtonClick={onSignOutButtonClick}
+            onMenu={() => setDrawerOpen(!drawerOpen)}
+            onSignOut={onSignOut}
             data-test-id='app_app-tool-bar'
           />
         }
@@ -98,7 +98,7 @@ App.propTypes = {
     message: PropTypes.string
   }),
   onErrorClose: PropTypes.func,
-  onSignOutButtonClick: PropTypes.func
+  onSignOut: PropTypes.func
 }
 
 export default App

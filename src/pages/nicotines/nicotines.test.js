@@ -16,13 +16,14 @@ describe('Nicotines page', () => {
     shallow(<Nicotines items={items} />)
   })
 
-  // it('raises onLoad', () => {
-  //   const onLoadMock = jest.fn()
+  /** @TODO Disabled as Enzyme does not support useEffect fully yet */
+  it('raises onLoad', () => {
+    const onLoadMock = jest.fn()
 
-  //   shallow(<Nicotines onLoad={onLoadMock} />)
+    shallow(<Nicotines onLoad={onLoadMock} />)
 
-  //   expect(onLoadMock).toHaveBeenCalled()
-  // })
+    // expect(onLoadMock).toHaveBeenCalled()
+  })
 
   it('raises onCreate', () => {
     const onCreateMock = jest.fn()
