@@ -11,12 +11,6 @@ import NicotinesForm from './nicotines-form'
 
 import useStyles from './nicotines.styles'
 
-const defaultItem = {
-  name: '',
-  pg: 100,
-  strength: 20
-}
-
 const Nicotines = ({
   items,
   onLoad,
@@ -29,7 +23,7 @@ const Nicotines = ({
   }, [ onLoad ])
 
   const [ formOpen, setFormOpen ] = useState(false)
-  const [ formItem, setFormItem ] = useState(defaultItem)
+  const [ formItem, setFormItem ] = useState(null)
 
   const classes = useStyles()
 
@@ -42,7 +36,7 @@ const Nicotines = ({
   }
 
   const handleCreate = () => {
-    setFormItem(defaultItem)
+    setFormItem(null)
     setFormOpen(true)
   }
 

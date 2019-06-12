@@ -12,15 +12,23 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 
 import useStyles from './nicotines-form.styles'
 
-const NicotinesForm = ({ open = true, item, onSubmit, onClose }) => {
+const defaultValues = {
+  name: '',
+  pg: 100,
+  strength: 20,
+  notes: ''
+}
+
+const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
   const classes = useStyles()
 
-  const [values, setValues] = useState(item)
+  const [values, setValues] = useState(defaultValues)
   const [errors, setErrors] = useState({})
 
   useEffect(() => {
-    setValues(item)
-  }, [item])
+    open && setValues(item || defaultValues)
+    open && setErrors({})
+  }, [open, item])
 
   const nameValid = name => !!name
   const valid = values => nameValid(values.name)
@@ -69,7 +77,7 @@ const NicotinesForm = ({ open = true, item, onSubmit, onClose }) => {
         data-test-id='nicotines-form_form'
       >
         <DialogTitle id='nicotines-form_dialog-title'>
-          { item.id ? `Edit '${item.name}'` : 'Add new nicotine' }
+          { item ? `Edit '${item.name}'` : 'Add new nicotine' }
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -78,7 +86,7 @@ const NicotinesForm = ({ open = true, item, onSubmit, onClose }) => {
           <div className={classes.row}>
             <TextField
               name='name'
-              value={values.name}
+              value={values.name || ''}
               required
               error={!!errors.name}
               className={classes.textField}
@@ -146,14 +154,14 @@ const NicotinesForm = ({ open = true, item, onSubmit, onClose }) => {
 }
 
 NicotinesForm.propTypes = {
-  open: PropTypes.bool,
+  open: PropTypes.bool.isRequired,
   item: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string.isRequired,
     pg: PropTypes.number.isRequired,
     strength: PropTypes.number.isRequired,
     notes: PropTypes.string
-  }).isRequired,
+  }),
   onSubmit: PropTypes.func,
   onClose: PropTypes.func
 }

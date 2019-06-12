@@ -72,7 +72,8 @@ describe('NicotinesForm component', () => {
     expect(onSubmitMock).toHaveBeenCalledWith({
       name: 'Generic nicotine',
       pg: 50,
-      strength: 72
+      strength: 72,
+      notes: ''
     })
   })
 
