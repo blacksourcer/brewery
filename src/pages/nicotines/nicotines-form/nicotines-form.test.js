@@ -77,9 +77,9 @@ describe('NicotinesForm component', () => {
     })
   })
 
-  it('does not raise onSubmit when not valid', () => {
+  it('does not raise onSubmit when name is not valid', () => {
     const item = {
-      name: '',
+      name: 'Generic nicotine',
       pg: 100,
       strength: 20
     }

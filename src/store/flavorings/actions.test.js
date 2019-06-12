@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
-import { nicotines } from '../../services/firebase'
+import { flavorings } from '../../services/firebase'
 
 import * as actions from './actions'
 import * as appActions from '../app/actions'
@@ -10,38 +10,38 @@ const mockStore = configureMockStore([ thunk ])
 
 jest.mock('../../services/firebase')
 
-describe('nicotines mutations', () => {
+describe('flavorings mutations', () => {
   it('creates valid SET mutation', () => {
     expect(actions.set([
-      { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 },
-      { id: 'a2', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
+      { id: 'a1', vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 },
+      { id: 'a2', vendor: 'FlavourArt', name: 'Custard v.2', pg: 50, notes: 'Safer then v1' }
     ]))
       .toEqual({
         type: actions.SET,
         value: [
-          { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 },
-          { id: 'a2', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
+          { id: 'a1', vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 },
+          { id: 'a2', vendor: 'FlavourArt', name: 'Custard v.2', pg: 50, notes: 'Safer then v1' }
         ]
       })
   })
 
   it('creates valid ADD mutation', () => {
     expect(actions.add(
-      { name: 'Generic nicotine', pg: 100, strength: 20 }
+      { vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 }
     ))
       .toEqual({
         type: actions.ADD,
-        value: { name: 'Generic nicotine', pg: 100, strength: 20 }
+        value: { vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 }
       })
   })
 
   it('creates valid EDIT mutation', () => {
     expect(actions.edit(
-      { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 }
+      { id: 'a1', vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 }
     ))
       .toEqual({
         type: actions.EDIT,
-        value: { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 }
+        value: { id: 'a1', vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 }
       })
   })
 
@@ -54,14 +54,14 @@ describe('nicotines mutations', () => {
   })
 })
 
-describe('nicotines fetch action', () => {
-  it('sets nicotines when data from the firebase is provided', () => {
-    const store = mockStore({ nicotines: [] })
+describe('flavorings fetch action', () => {
+  it('sets flavorings when data from the firebase is provided', () => {
+    const store = mockStore({ flavorings: [] })
 
-    nicotines.get.mockResolvedValue({
+    flavorings.get.mockResolvedValue({
       docs: [
-        { id: 'a1', data: () => ({ name: 'Generic nicotine', pg: 100, strength: 20 }) },
-        { id: 'a2', data: () => ({ name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }) }
+        { id: 'a1', data: () => ({ vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 }) },
+        { id: 'a2', data: () => ({ vendor: 'FlavourArt', name: 'Custard v.2', pg: 50, notes: 'Safer then v1' }) }
       ]
     })
 
@@ -72,21 +72,21 @@ describe('nicotines fetch action', () => {
           {
             type: actions.SET,
             value: [
-              { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 },
-              { id: 'a2', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
+              { id: 'a1', vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 },
+              { id: 'a2', vendor: 'FlavourArt', name: 'Custard v.2', pg: 50, notes: 'Safer then v1' }
             ]
           },
           { type: appActions.SET_LOADING, value: false }
         ])
 
-        expect(nicotines.get).toHaveBeenCalled()
+        expect(flavorings.get).toHaveBeenCalled()
       })
   })
 
   it('sets error firebase request fails', () => {
-    const store = mockStore({ nicotines: [] })
+    const store = mockStore({ flavorings: [] })
 
-    nicotines.get.mockRejectedValue({ message: 'error occured' })
+    flavorings.get.mockRejectedValue({ message: 'error occured' })
 
     store.dispatch(actions.fetch())
       .then(() => {
@@ -99,41 +99,40 @@ describe('nicotines fetch action', () => {
   })
 })
 
-describe('nicotines create action', () => {
+describe('flavorings create action', () => {
   it('calls firebase method and adds the item to the collection', () => {
-    const store = mockStore({ nicotines: [] })
+    const store = mockStore({ flavorings: [] })
 
-    nicotines.add.mockResolvedValue({
+    flavorings.add.mockResolvedValue({
       id: 'a1',
-      data: () => ({ name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' })
+      data: () => ({ vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 })
     })
 
     store.dispatch(actions.create(
-      { name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
+      { vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 }
     ))
       .then(() => {
         expect(store.getActions()).toEqual([
           { type: appActions.SET_LOADING, value: true },
           {
             type: actions.ADD,
-            value: { id: 'a1', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
+            value: { id: 'a1', vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 }
           },
           { type: appActions.SET_LOADING, value: false }
         ])
 
-        expect(nicotines.add).toHaveBeenCalledWith(
-          { name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
-        )
+        expect(flavorings.add).toHaveBeenCalledWith(
+          { vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 })
       })
   })
 
   it('sets error firebase request fails', () => {
-    const store = mockStore({ nicotines: [] })
+    const store = mockStore({ flavorings: [] })
 
-    nicotines.add.mockRejectedValue({ message: 'error occured' })
+    flavorings.add.mockRejectedValue({ message: 'error occured' })
 
     store.dispatch(actions.create(
-      { name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
+      { vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 }
     ))
       .then(() => {
         expect(store.getActions()).toEqual([
@@ -145,51 +144,51 @@ describe('nicotines create action', () => {
   })
 })
 
-describe('nicotines update action', () => {
+describe('flavorings update action', () => {
   it('calls firebase method and edits the item in the collection', () => {
-    const store = mockStore({ nicotines: [
-      { id: 'a1', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
+    const store = mockStore({ flavorings: [
+      { id: 'a1', vendor: 'The Parumer Apprentice', name: 'Straberry Ripe', pg: 50 }
     ] })
 
     const mockUpdate = jest.fn()
 
-    nicotines.doc = jest.fn(() => ({ update: mockUpdate }))
+    flavorings.doc = jest.fn(() => ({ update: mockUpdate }))
 
     mockUpdate.mockResolvedValue()
 
     store.dispatch(actions.update(
-      { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 }
+      { id: 'a1', vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 }
     ))
       .then(() => {
         expect(store.getActions()).toEqual([
           { type: appActions.SET_LOADING, value: true },
           {
             type: actions.EDIT,
-            value: { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 }
+            value: { id: 'a1', vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 }
           },
           { type: appActions.SET_LOADING, value: false }
         ])
 
-        expect(nicotines.doc).toHaveBeenCalledWith('a1')
+        expect(flavorings.doc).toHaveBeenCalledWith('a1')
         expect(mockUpdate).toHaveBeenCalledWith(
-          { name: 'Generic nicotine', pg: 100, strength: 20 }
+          { vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 }
         )
       })
   })
 
   it('sets error firebase request fails', () => {
-    const store = mockStore({ nicotines: [
-      { id: 'a1', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
+    const store = mockStore({ flavorings: [
+      { id: 'a1', vendor: 'The Parumer Apprentice', name: 'Straberry Ripe', pg: 50 }
     ] })
 
     const mockUpdate = jest.fn()
 
-    nicotines.doc = jest.fn(() => ({ update: mockUpdate }))
+    flavorings.doc = jest.fn(() => ({ update: mockUpdate }))
 
     mockUpdate.mockRejectedValue({ message: 'error occured' })
 
     store.dispatch(actions.update(
-      { id: 'a1', name: 'Generic nicotine', pg: 100, strength: 20 }
+      { id: 'a1', vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 }
     ))
       .then(() => {
         expect(store.getActions()).toEqual([
@@ -201,15 +200,15 @@ describe('nicotines update action', () => {
   })
 })
 
-describe('nicotines deleteById action', () => {
+describe('flavorings deleteById action', () => {
   it('calls firebase method and deletes the item from the collection', () => {
-    const store = mockStore({ nicotines: [
-      { id: 'a1', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
+    const store = mockStore({ flavorings: [
+      { id: 'a1', vendor: 'The Perfumer\'s Apprentice', name: 'Strawberry Ripe', pg: 100 }
     ] })
 
     const mockDelete = jest.fn()
 
-    nicotines.doc = jest.fn(() => ({ delete: mockDelete }))
+    flavorings.doc = jest.fn(() => ({ delete: mockDelete }))
 
     mockDelete.mockResolvedValue()
 
@@ -221,19 +220,19 @@ describe('nicotines deleteById action', () => {
           { type: appActions.SET_LOADING, value: false }
         ])
 
-        expect(nicotines.doc).toHaveBeenCalledWith('a1')
+        expect(flavorings.doc).toHaveBeenCalledWith('a1')
         expect(mockDelete).toHaveBeenCalled()
       })
   })
 
   it('sets error firebase request fails', () => {
-    const store = mockStore({ nicotines: [
-      { id: 'a1', name: 'Salt nicotine', pg: 50, strength: 72, notes: 'Some notes' }
+    const store = mockStore({ flavorings: [
+      { id: 'a1', vendor: 'The Parumer Apprentice', name: 'Straberry Ripe', pg: 50 }
     ] })
 
     const mockDelete = jest.fn()
 
-    nicotines.doc = jest.fn(() => ({ delete: mockDelete }))
+    flavorings.doc = jest.fn(() => ({ delete: mockDelete }))
 
     mockDelete.mockRejectedValue({ message: 'error occured' })
 

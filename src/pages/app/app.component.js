@@ -17,6 +17,7 @@ import Error from '../../components/error'
 import Home from '../../pages/home'
 import SignIn from '../../pages/sign-in'
 import Nicotines from '../../pages/nicotines'
+import Flavorings from '../../pages/flavorings'
 
 import AppToolBar from './app-tool-bar'
 import AppDrawer from './app-drawer'
@@ -72,6 +73,7 @@ const App = ({
             { loading && <Loader />}
             <Route exact path='/' render={authorizedComponent(<Home />)} />
             <Route exact path='/nicotines' render={authorizedComponent(<Nicotines />)} />
+            <Route exact path='/flavorings' render={authorizedComponent(<Flavorings />)} />
             <Route exact path='/sign-in' render={nonAuthorizedComponent(<SignIn />)} />
           </Container>
           { error &&

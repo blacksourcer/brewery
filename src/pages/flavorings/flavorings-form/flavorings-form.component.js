@@ -10,16 +10,16 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
-import useStyles from './nicotines-form.styles'
+import useStyles from './flavorings-form.styles'
 
 const defaultValues = {
+  vendor: '',
   name: '',
   pg: 100,
-  strength: 20,
   notes: ''
 }
 
-const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
+const FlavoringsForm = ({ open, item, onSubmit, onClose }) => {
   const classes = useStyles()
 
   const [values, setValues] = useState(defaultValues)
@@ -30,8 +30,21 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
     open && setErrors({})
   }, [open, item])
 
+  const vendorValid = vendor => !!vendor
   const nameValid = name => !!name
   const valid = values => nameValid(values.name)
+
+  const handleVendorChange = e => {
+    const value = e.target.value
+    const valueValid = vendorValid(value)
+
+    setErrors({
+      ...errors,
+      vendor: valueValid ? null : 'Vendor required'
+    })
+
+    setValues({ ...values, vendor: value })
+  }
 
   const handleNameChange = e => {
     const value = e.target.value
@@ -48,11 +61,6 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
   const handlePgChange = e => {
     const value = Math.min(parseInt(e.target.value) || 0, 100)
     setValues({ ...values, pg: value })
-  }
-
-  const handleStrengthChange = e => {
-    const value = Math.min(parseInt(e.target.value) || 0, 1000)
-    setValues({ ...values, strength: value })
   }
 
   const handleChange = e => {
@@ -74,15 +82,29 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
         onSubmit={handleSubmit}
         noValidate
         autoComplete='off'
-        data-test-id='nicotines-form_form'
+        data-test-id='flavorings-form_form'
       >
-        <DialogTitle id='nicotines-form_dialog-title'>
-          { item ? `Edit '${item.name}'` : 'Add new nicotine' }
+        <DialogTitle id='flavorings-form_dialog-title'>
+          { item ? `Edit '${item.name}'` : 'Add new flavoring' }
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Please fill-in new entry's details below. Fields marked with '*' are required.
           </DialogContentText>
+          <div className={classes.row}>
+            <TextField
+              name='vendor'
+              value={values.vendor || ''}
+              required
+              error={!!errors.vendor}
+              className={classes.textField}
+              autoFocus
+              label={errors.vendor || 'Vendor'}
+              fullWidth
+              onChange={handleVendorChange}
+              data-test-id='flavorings-form_text-field_vendor'
+            />
+          </div>
           <div className={classes.row}>
             <TextField
               name='name'
@@ -94,7 +116,7 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
               label={errors.name || 'Title'}
               fullWidth
               onChange={handleNameChange}
-              data-test-id='nicotines-form_text-field_name'
+              data-test-id='flavorings-form_text-field_name'
             />
           </div>
           <div className={classes.row}>
@@ -106,25 +128,7 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
               className={classes.textField}
               label='PG'
               onChange={handlePgChange}
-              data-test-id='nicotines-form_text-field_pg'
-            />
-            <TextField
-              name='vg'
-              value={100 - values.pg}
-              className={classes.textField}
-              label='VG'
-              readOnly
-              data-test-id='nicotines-form_text-field_vg'
-            />
-            <TextField
-              name='strength'
-              type='number'
-              value={values.strength}
-              required
-              className={classes.textField}
-              label='Strength, mg/ml'
-              onChange={handleStrengthChange}
-              data-test-id='nicotines-form_text-field_strength'
+              data-test-id='flavorings-form_text-field_pg'
             />
           </div>
           <div className={classes.row}>
@@ -136,7 +140,7 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
               label='Notes'
               fullWidth
               onChange={handleChange}
-              data-test-id='nicotines-form_text-field_notes'
+              data-test-id='flavorings-form_text-field_notes'
             />
           </div>
         </DialogContent>
@@ -153,21 +157,21 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
   )
 }
 
-NicotinesForm.defaultProps = {
+FlavoringsForm.defaultProps = {
   open: false
 }
 
-NicotinesForm.propTypes = {
+FlavoringsForm.propTypes = {
   open: PropTypes.bool.isRequired,
   item: PropTypes.shape({
     id: PropTypes.string,
+    vendor: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     pg: PropTypes.number.isRequired,
-    strength: PropTypes.number.isRequired,
     notes: PropTypes.string
   }),
   onSubmit: PropTypes.func,
   onClose: PropTypes.func
 }
 
-export default NicotinesForm
+export default FlavoringsForm

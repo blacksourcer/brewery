@@ -63,6 +63,9 @@ const AppDrawer = ({ open }) => {
             <ListItem component={Link} to='/nicotines' button className={classes.nested}>
               <ListItemText primary='Nicotines' />
             </ListItem>
+            <ListItem component={Link} to='/flavorings' button className={classes.nested}>
+              <ListItemText primary='Flavorings' />
+            </ListItem>
           </List>
         </Collapse>
       </List>

@@ -15,5 +15,6 @@ firebase.initializeApp(config)
 const db = firebase.firestore()
 
 export const nicotines = db.collection('nicotines')
+export const flavorings = db.collection('flavorings')
 
 export const auth = firebase.auth()
