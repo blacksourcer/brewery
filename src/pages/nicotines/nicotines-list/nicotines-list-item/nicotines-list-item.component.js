@@ -20,7 +20,7 @@ const NicotinesListItem = ({ item, onUpdate, onDelete }) => {
           {item.name}
         </Typography>
         <Typography variant='subtitle1'>
-          PG/VG Ratio: {item.pg}/{100 - item.pg}. Strength: {item.strength}.
+          PG/VG: {item.pg}/{100 - item.pg}, strength: {item.strength} mg/ml.
         </Typography>
         <Typography variant='body2' color='textSecondary' component='p'>
           {item.notes}

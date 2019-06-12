@@ -75,4 +75,31 @@ describe('NicotinesForm component', () => {
       strength: 72
     })
   })
+
+  it('does not raise onSubmit when not valid', () => {
+    const item = {
+      name: '',
+      pg: 100,
+      strength: 20
+    }
+
+    const onSubmitMock = jest.fn()
+
+    const wrapper = shallow(
+      <NicotinesForm item={item} onSubmit={onSubmitMock} />
+    )
+
+    wrapper.find('[data-test-id="nicotines-form_text-field_name"]').simulate('change', {
+      target: {
+        name: 'name',
+        value: ''
+      }
+    })
+
+    wrapper.find('[data-test-id="nicotines-form_form"]').simulate('submit', {
+      preventDefault: () => {}
+    })
+
+    expect(onSubmitMock).not.toHaveBeenCalled()
+  })
 })

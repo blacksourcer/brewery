@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import Button from '@material-ui/core/Button'
@@ -12,34 +12,52 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 
 import useStyles from './nicotines-form.styles'
 
-const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
+const NicotinesForm = ({ open = true, item, onSubmit, onClose }) => {
   const classes = useStyles()
 
-  const [currentItem, setCurrentItem] = useState(item)
+  const [values, setValues] = useState(item)
+  const [errors, setErrors] = useState({})
 
-  React.useEffect(() => {
-    setCurrentItem(item)
+  useEffect(() => {
+    setValues(item)
   }, [item])
 
-  const isItemValid = item => item.name &&
-    item.pg &&
-    item.strength
+  const nameValid = name => !!name
+  const valid = values => nameValid(values.name)
+
+  const handleNameChange = e => {
+    const value = e.target.value
+    const valueValid = nameValid(value)
+
+    setErrors({
+      ...errors,
+      name: valueValid ? null : 'Title required'
+    })
+
+    setValues({ ...values, name: value })
+  }
+
+  const handlePgChange = e => {
+    const value = Math.min(parseInt(e.target.value) || 0, 100)
+    setValues({ ...values, pg: value })
+  }
+
+  const handleStrengthChange = e => {
+    const value = Math.min(parseInt(e.target.value) || 0, 1000)
+    setValues({ ...values, strength: value })
+  }
 
   const handleChange = e => {
-    const { name, value, type } = e.target
-
-    const parsedValue = type === 'number'
-      ? parseInt(value)
-      : value
-
-    setCurrentItem({ ...currentItem, [name]: parsedValue })
+    const { name, value } = e.target
+    setValues({ ...values, [name]: value })
   }
 
   const handleSubmit = e => {
     e.preventDefault()
 
     onSubmit &&
-      onSubmit(currentItem)
+    valid(values) &&
+    onSubmit(values)
   }
 
   return (
@@ -60,13 +78,14 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
           <div className={classes.row}>
             <TextField
               name='name'
-              value={currentItem.name}
+              value={values.name}
               required
+              error={!!errors.name}
               className={classes.textField}
               autoFocus
-              label='Title'
+              label={errors.name || 'Title'}
               fullWidth
-              onChange={handleChange}
+              onChange={handleNameChange}
               data-test-id='nicotines-form_text-field_name'
             />
           </div>
@@ -74,16 +93,16 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
             <TextField
               name='pg'
               type='number'
-              value={currentItem.pg}
+              value={values.pg}
               required
               className={classes.textField}
               label='PG'
-              onChange={handleChange}
+              onChange={handlePgChange}
               data-test-id='nicotines-form_text-field_pg'
             />
             <TextField
               name='vg'
-              value={100 - currentItem.pg}
+              value={100 - values.pg}
               className={classes.textField}
               label='VG'
               readOnly
@@ -92,18 +111,18 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
             <TextField
               name='strength'
               type='number'
-              value={currentItem.strength}
+              value={values.strength}
               required
               className={classes.textField}
               label='Strength, mg/ml'
-              onChange={handleChange}
+              onChange={handleStrengthChange}
               data-test-id='nicotines-form_text-field_strength'
             />
           </div>
           <div className={classes.row}>
             <TextField
               name='notes'
-              value={currentItem.notes}
+              value={values.notes}
               className={classes.textField}
               multiline
               label='Notes'
@@ -117,7 +136,7 @@ const NicotinesForm = ({ open, item, onSubmit, onClose }) => {
           <Button color='primary' onClick={onClose}>
             Cancel
           </Button>
-          <Button disabled={!isItemValid(currentItem)} type='submit' color='primary'>
+          <Button disabled={!valid(values)} type='submit' color='primary'>
             Submit
           </Button>
         </DialogActions>
