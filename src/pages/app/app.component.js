@@ -70,7 +70,7 @@ const App = ({
         })}>
           <div className={classes.contentSpacer} />
           <Container maxWidth='lg' className={classes.container}>
-            { loading && <Loader />}
+            { loading && <Loader /> }
             <Route exact path='/' render={authorizedComponent(<Home />)} />
             <Route exact path='/nicotines' render={authorizedComponent(<Nicotines />)} />
             <Route exact path='/flavorings' render={authorizedComponent(<Flavorings />)} />

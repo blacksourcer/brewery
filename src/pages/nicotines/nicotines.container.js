@@ -5,6 +5,7 @@ import { fetch, create, update, deleteById } from '../../store/nicotines/actions
 import Nicotines from './nicotines.component'
 
 const mapStateToProps = state => ({
+  loading: state.app.loading,
   items: state.nicotines
 })
 

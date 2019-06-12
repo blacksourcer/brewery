@@ -12,6 +12,7 @@ import NicotinesForm from './nicotines-form'
 import useStyles from './nicotines.styles'
 
 const Nicotines = ({
+  loading,
   items,
   onLoad,
   onCreate,
@@ -66,17 +67,18 @@ const Nicotines = ({
         onSubmit={handleSubmit}
         data-test-id='nicotines_nicotines-form'
       />
-      <NicotinesList
+      {!loading && <NicotinesList
         items={items}
         onUpdate={handleUpdate}
         onDelete={handleDelete}
         data-test-id='nicotines_nicotines-list'
-      />
+      /> }
     </Container>
   )
 }
 
 Nicotines.propTypes = {
+  loading: PropTypes.bool.isRequired,
   items: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -90,6 +92,10 @@ Nicotines.propTypes = {
   onCreate: PropTypes.func,
   onUpdate: PropTypes.func,
   onDelete: PropTypes.func
+}
+
+Nicotines.defaultProps = {
+  loading: false
 }
 
 export default Nicotines

@@ -7,7 +7,8 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     height: '100vh',
-    overflow: 'auto'
+    overflow: 'auto',
+    position: 'relative'
   },
   contentLayout: {
     transition: theme.transitions.create('margin', {
@@ -23,19 +24,6 @@ const useStyles = makeStyles(theme => ({
   container: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4)
-  },
-  overlay: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(200, 200, 200, .3)',
-    zIndex: theme.zIndex.appBar + 1
   },
   progess: {
     margin: theme.spacing(2)

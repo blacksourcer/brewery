@@ -12,6 +12,7 @@ import FlavoringsForm from './flavorings-form'
 import useStyles from './flavorings.styles'
 
 const Flavorings = ({
+  loading,
   items,
   onLoad,
   onCreate,
@@ -66,17 +67,18 @@ const Flavorings = ({
         onSubmit={handleSubmit}
         data-test-id='flavorings_flavorings-form'
       />
-      <FlavoringsList
+      { !loading && <FlavoringsList
         items={items}
         onUpdate={handleUpdate}
         onDelete={handleDelete}
         data-test-id='flavorings_flavorings-list'
-      />
+      /> }
     </Container>
   )
 }
 
 Flavorings.propTypes = {
+  loading: PropTypes.bool.isRequired,
   items: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -90,6 +92,10 @@ Flavorings.propTypes = {
   onCreate: PropTypes.func,
   onUpdate: PropTypes.func,
   onDelete: PropTypes.func
+}
+
+Flavorings.defaultProps = {
+  loading: false
 }
 
 export default Flavorings
