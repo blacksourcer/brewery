@@ -17,7 +17,7 @@ const FlavoringsListItem = ({ item, onUpdate, onDelete }) => {
     <Card className={classes.item}>
       <CardContent>
         <Typography component='h5' variant='h5'>
-          {item.vendor}: {item.name}
+          [{item.vendor}] {item.name}
         </Typography>
         <Typography variant='subtitle1'>
           PG/VG: {item.pg}/{100 - item.pg}.

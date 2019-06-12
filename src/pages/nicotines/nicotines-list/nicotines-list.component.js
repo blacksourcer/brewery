@@ -1,11 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import EmptyLabel from '../../../components/empty-label'
+
 import NicotinesListItem from './nicotines-list-item'
 
 const NicotinesList = ({ items, onUpdate, onDelete }) => {
   return (
     <div>
+      { !items.length && <EmptyLabel>No Nicotines</EmptyLabel> }
       { items.map(
         item => (
           <NicotinesListItem

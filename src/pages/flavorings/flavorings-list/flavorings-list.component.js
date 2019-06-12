@@ -1,11 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import EmptyLabel from '../../../components/empty-label'
+
 import FlavoringsListItem from './flavorings-list-item'
 
 const FlavoringsList = ({ items, onUpdate, onDelete }) => {
   return (
     <div>
+      { !items.length && <EmptyLabel>No Flavorings</EmptyLabel> }
       { items.map(
         item => (
           <FlavoringsListItem
